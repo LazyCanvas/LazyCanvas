@@ -1,10 +1,10 @@
-calc: exemplo01.l exemplo01.y
-	bison -d exemplo01.y
-	mv exemplo01.tab.h include/sintatico.h
-	mv exemplo01.tab.c include/sintatico.c
-	flex exemplo01.l
-	mv lex.yy.c include/lexico.c
-	gcc -o calc include/sintatico.c include/lexico.c -lm
+calc: canvas_lexic.l canvas_syntax.y
+	bison -d canvas_syntax.y
+	mv canvas_syntax.tab.h include/syntax.h
+	mv canvas_syntax.tab.c include/syntax.c
+	flex canvas_lexic.l
+	mv lex.yy.c include/lexic.c
+	gcc -o calc include/syntax.c include/lexic.c -lm
 
 clean:
-	rm lexico.* sintatico.* calc.exe
+	rm lexic.* syntax.* calc.exe
