@@ -8,7 +8,8 @@
 %token NUMBER
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
-%token END
+%token BREAK_LINE
+%token DRAW FUNCTION END_BLOCK
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -24,8 +25,8 @@ Input:
    | Input Line
    ;
 Line:
-   END
-   | Expression END { printf("Resultado: %f\n",$1); }
+   BREAK_LINE
+   | Expression BREAK_LINE { printf("Resultado: %f\n",$1); }
    ;
 Expression:
    NUMBER { $$=$1; }
