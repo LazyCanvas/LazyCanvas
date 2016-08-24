@@ -62,14 +62,14 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "canvas_syntax.y" /* yacc.c:339  */
+#line 1 "parser.y" /* yacc.c:339  */
 
 #include "global.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#line 73 "canvas_syntax.tab.c" /* yacc.c:339  */
+#line 73 "parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -88,9 +88,9 @@
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "canvas_syntax.tab.h".  */
-#ifndef YY_YY_CANVAS_SYNTAX_TAB_H_INCLUDED
-# define YY_YY_CANVAS_SYNTAX_TAB_H_INCLUDED
+   by #include "parser.tab.h".  */
+#ifndef YY_YY_PARSER_TAB_H_INCLUDED
+# define YY_YY_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -132,11 +132,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_CANVAS_SYNTAX_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 140 "canvas_syntax.tab.c" /* yacc.c:358  */
+#line 140 "parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1219,61 +1219,61 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 29 "canvas_syntax.y" /* yacc.c:1646  */
+#line 29 "parser.y" /* yacc.c:1646  */
     { printf("Resultado: %f\n",(yyvsp[-1])); }
-#line 1225 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1225 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 32 "canvas_syntax.y" /* yacc.c:1646  */
+#line 32 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[0]); }
-#line 1231 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1231 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 33 "canvas_syntax.y" /* yacc.c:1646  */
+#line 33 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[-2])+(yyvsp[0]); }
-#line 1237 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1237 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 34 "canvas_syntax.y" /* yacc.c:1646  */
+#line 34 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[-2])-(yyvsp[0]); }
-#line 1243 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1243 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 35 "canvas_syntax.y" /* yacc.c:1646  */
+#line 35 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[-2])*(yyvsp[0]); }
-#line 1249 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1249 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 36 "canvas_syntax.y" /* yacc.c:1646  */
+#line 36 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[-2])/(yyvsp[0]); }
-#line 1255 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1255 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 37 "canvas_syntax.y" /* yacc.c:1646  */
+#line 37 "parser.y" /* yacc.c:1646  */
     { (yyval)=-(yyvsp[0]); }
-#line 1261 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1261 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 38 "canvas_syntax.y" /* yacc.c:1646  */
+#line 38 "parser.y" /* yacc.c:1646  */
     { (yyval)=pow((yyvsp[-2]),(yyvsp[0])); }
-#line 1267 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1267 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 39 "canvas_syntax.y" /* yacc.c:1646  */
+#line 39 "parser.y" /* yacc.c:1646  */
     { (yyval)=(yyvsp[-1]); }
-#line 1273 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1273 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1277 "canvas_syntax.tab.c" /* yacc.c:1646  */
+#line 1277 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1501,7 +1501,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 42 "canvas_syntax.y" /* yacc.c:1906  */
+#line 42 "parser.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {

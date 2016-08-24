@@ -478,8 +478,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "canvas_lexic.l"
-#line 2 "canvas_lexic.l"
+#line 1 "parser.l"
+#line 2 "parser.l"
 #include "global.h"
 #include "syntax.h"
 #include <stdlib.h>
@@ -671,7 +671,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 15 "canvas_lexic.l"
+#line 15 "parser.l"
 
 
 #line 678 "lex.yy.c"
@@ -759,12 +759,12 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 17 "canvas_lexic.l"
+#line 17 "parser.l"
 {/* Ignore white characters */ }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "canvas_lexic.l"
+#line 19 "parser.l"
 {
    yylval=atof(yytext);
    return(NUMBER);
@@ -772,63 +772,63 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 24 "canvas_lexic.l"
+#line 24 "parser.l"
 return(PLUS);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "canvas_lexic.l"
+#line 25 "parser.l"
 return(MINUS);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "canvas_lexic.l"
+#line 26 "parser.l"
 return(TIMES);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 27 "canvas_lexic.l"
+#line 27 "parser.l"
 return(DIVIDE);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 28 "canvas_lexic.l"
+#line 28 "parser.l"
 return(POWER);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 29 "canvas_lexic.l"
+#line 29 "parser.l"
 return(LEFT_PARENTHESIS);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 30 "canvas_lexic.l"
+#line 30 "parser.l"
 return(RIGHT_PARENTHESIS);
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 31 "canvas_lexic.l"
+#line 31 "parser.l"
 return(BREAK_LINE);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 32 "canvas_lexic.l"
+#line 32 "parser.l"
 return(END_BLOCK);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 33 "canvas_lexic.l"
+#line 33 "parser.l"
 return(DRAW);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 34 "canvas_lexic.l"
+#line 34 "parser.l"
 return(FUNCTION);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 36 "canvas_lexic.l"
+#line 36 "parser.l"
 ECHO;
 	YY_BREAK
 #line 835 "lex.yy.c"
@@ -1829,7 +1829,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 36 "canvas_lexic.l"
+#line 36 "parser.l"
 
 
 
