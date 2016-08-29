@@ -6,10 +6,15 @@
 %}
 
 %token NUMBER
+%token EQUALS DOT
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token BREAK_LINE
 %token DRAW FUNCTION END_BLOCK
+
+%token VARIABLE
+%token TYPES
+%token KEYWORD
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,6 +32,7 @@ Input:
 Line:
    BREAK_LINE
    | Expression BREAK_LINE { printf("Resultado: %f\n",$1); }
+   | Instance BREAK_LINE
    ;
 Expression:
    NUMBER { $$=$1; }
@@ -38,7 +44,11 @@ Expression:
    | Expression POWER Expression { $$=pow($1,$3); }
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
-
+Instance:
+  VARIABLE
+  | VARIABLE EQUALS TYPES { printf("ATE TYPE\n"); }
+  | VARIABLE EQUALS TYPES DOT KEYWORD { printf("Instance successful\n"); }
+  ;
 %%
 
 int yyerror(char *s) {

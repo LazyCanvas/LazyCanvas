@@ -11,6 +11,9 @@ digit [0-9]
 integer {digit}+
 exponant [eE][+-]?{integer}
 number {integer}("."{integer})?{exponant}?
+types (Elipse|Arc|Circle|Line|Rectangle)
+keyword (new|def)
+variable ([a-zA-Z_][a-zA-Z0-9_]*)
 
 %% /* Roles */
 
@@ -21,6 +24,18 @@ number {integer}("."{integer})?{exponant}?
    return(NUMBER);
 }
 
+{types} {
+  return(TYPES);
+}
+
+{keyword} {
+  return(KEYWORD);
+}
+
+{variable} {
+  return(VARIABLE);
+}
+
 "+" return(PLUS);
 "-" return(MINUS);
 "*" return(TIMES);
@@ -28,10 +43,9 @@ number {integer}("."{integer})?{exponant}?
 "^" return(POWER);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
+"=" return(EQUALS);
 "\n" return(BREAK_LINE);
-"end" return(END_BLOCK);
-"draw" return(DRAW);
-"function" return(FUNCTION);
+"." return(DOT);
 
 %%
 

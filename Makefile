@@ -6,4 +6,4 @@ lazyc: parser.l parser.y
 	mv lex.yy.c include/lexic.c
 	gcc -o lazyc include/syntax.c include/lexic.c -lm
 clean:
-	rm lexic.* syntax.* lazyc.exe
+	rm include/lexic.* include/syntax.* lazyc

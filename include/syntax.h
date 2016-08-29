@@ -46,18 +46,23 @@ extern int yydebug;
   enum yytokentype
   {
     NUMBER = 258,
-    PLUS = 259,
-    MINUS = 260,
-    TIMES = 261,
-    DIVIDE = 262,
-    POWER = 263,
-    LEFT_PARENTHESIS = 264,
-    RIGHT_PARENTHESIS = 265,
-    BREAK_LINE = 266,
-    DRAW = 267,
-    FUNCTION = 268,
-    END_BLOCK = 269,
-    NEG = 270
+    EQUALS = 259,
+    DOT = 260,
+    PLUS = 261,
+    MINUS = 262,
+    TIMES = 263,
+    DIVIDE = 264,
+    POWER = 265,
+    LEFT_PARENTHESIS = 266,
+    RIGHT_PARENTHESIS = 267,
+    BREAK_LINE = 268,
+    DRAW = 269,
+    FUNCTION = 270,
+    END_BLOCK = 271,
+    VARIABLE = 272,
+    TYPES = 273,
+    KEYWORD = 274,
+    NEG = 275
   };
 #endif
 
