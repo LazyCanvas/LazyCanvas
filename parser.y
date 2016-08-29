@@ -45,9 +45,8 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
 Instance:
-   VARIABLE EQUALS TYPES DOT KEYWORD LEFT_PARENTHESIS PARAMETER RIGHT_PARENTHESIS
-      { printf("Instance successful\n"); }
-  ;
+   VARIABLE EQUALS TYPES DOT KEYWORD { printf("Instance successful\n"); }
+   ;
 %%
 
 int yyerror(char *s) {

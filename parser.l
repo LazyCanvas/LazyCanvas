@@ -13,7 +13,6 @@ number {integer}("."{integer})?{exponant}?
 types (Elipse|Arc|Circle|Line|Rectangle)
 keyword (new|def)
 variable ([a-zA-Z_][a-zA-Z0-9_]*)
-parameter (blank|({variable}))
 
 %% /* Roles */
 
@@ -34,10 +33,6 @@ parameter (blank|({variable}))
 
 {variable} {
   return(VARIABLE);
-}
-
-{parameter} {
-  return(PARAMETER);
 }
 
 "+" return(PLUS);
