@@ -12,7 +12,7 @@
 %token BREAK_LINE
 %token DRAW FUNCTION END_BLOCK
 
-%token VARIABLE
+%token VARIABLE PARAMETER
 %token TYPES
 %token KEYWORD
 
@@ -45,9 +45,8 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
 Instance:
-  VARIABLE
-  | VARIABLE EQUALS TYPES { printf("ATE TYPE\n"); }
-  | VARIABLE EQUALS TYPES DOT KEYWORD { printf("Instance successful\n"); }
+   VARIABLE EQUALS TYPES DOT KEYWORD LEFT_PARENTHESIS PARAMETER RIGHT_PARENTHESIS
+      { printf("Instance successful\n"); }
   ;
 %%
 

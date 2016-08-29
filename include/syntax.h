@@ -60,9 +60,10 @@ extern int yydebug;
     FUNCTION = 270,
     END_BLOCK = 271,
     VARIABLE = 272,
-    TYPES = 273,
-    KEYWORD = 274,
-    NEG = 275
+    PARAMETER = 273,
+    TYPES = 274,
+    KEYWORD = 275,
+    NEG = 276
   };
 #endif
 

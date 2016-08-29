@@ -5,7 +5,6 @@
 %}
 
 /* Definitions */
-
 blank [ \t]+
 digit [0-9]
 integer {digit}+
@@ -14,6 +13,7 @@ number {integer}("."{integer})?{exponant}?
 types (Elipse|Arc|Circle|Line|Rectangle)
 keyword (new|def)
 variable ([a-zA-Z_][a-zA-Z0-9_]*)
+parameter (blank|({variable}))
 
 %% /* Roles */
 
@@ -34,6 +34,10 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 
 {variable} {
   return(VARIABLE);
+}
+
+{parameter} {
+  return(PARAMETER);
 }
 
 "+" return(PLUS);
