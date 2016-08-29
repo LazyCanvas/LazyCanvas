@@ -64,6 +64,11 @@ void fix_node_case4(Node*);
 void fix_node_case5(Node*);
 
 /**************************************************************
+* search functions                                            *
+**************************************************************/
+Node* search(Node*, char*);
+
+/**************************************************************
 * Create functions                                            *
 **************************************************************/
 void create_sentinel();
@@ -76,29 +81,29 @@ Node* create_node(void*, char*);
 Node* uncle(Node*);
 Node* grand_father(Node*);
 void change_color(Node*);
-
-int main() {
-  start();
-  int *a = (int*)malloc(sizeof(int));
-  char name[] = "Pedro";
-  char name2[] = "Marcos";
-  char name3[] = "Ana";
-  char name4[] = "Eduardo";
-  char name5[] = "Brasil";
-  char name6[] = "Giovana";
-
-  insert(a, name);
-  insert(a, name2);
-  insert(a, name3);
-  insert(a, name4);
-  insert(a, name5);
-  insert(a, name6);
-
-
-  print_tree(tree->root);
-
-  return 0;
-}
+//
+// int main() {
+//   start();
+//   int *a = (int*)malloc(sizeof(int));
+//   char name[] = "Pedro";
+//   char name2[] = "Marcos";
+//   char name3[] = "Ana";
+//   char name4[] = "Eduardo";
+//   char name5[] = "Brasil";
+//   char name6[] = "Giovana";
+//
+//   insert(a, name);
+//   insert(a, name2);
+//   insert(a, name3);
+//   insert(a, name4);
+//   insert(a, name5);
+//   insert(a, name6);
+//
+//
+//   print_tree(tree->root);
+//
+//   return 0;
+// }
 
 /**************************************************************
 * insert funcitons                                            *
@@ -282,6 +287,25 @@ void fix_node_case5(Node* node) {
 
   if(grand_father_node == tree->root) {
     tree->root = father;
+  }
+}
+
+/**************************************************************
+* search functions                                            *
+**************************************************************/
+Node* search(Node* current, char *structure_name) {
+  if(current == sentinel) {
+    exit(400);
+  } else {
+    if(strcmp(current->name, structure_name) == 0) {
+      return current;
+    } else {
+      if(strcmp(current->name, structure_name) > 0) {
+        return search(current->left_child, structure_name);
+      } else {
+        return search(current->right_child, structure_name);
+      }
+    }
   }
 }
 

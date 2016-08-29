@@ -2,66 +2,66 @@
  * The biggest color name supported by HTML is LightGoldenRodYellow
  * and it have 20 chars.
  */
-#define MAX_COLORNAME_SIZE 25
+#define MAX_COLORNAME_SIZE 25 * sizeof(char)
 
 /**
  * All structure drawable should contains this
  */
-typedef struct Drawable {
+typedef struct drawable {
   /**
    * This should accept Hexadecimal and Colors by name,
    * as long they are supported by HTML.
    */
-  char * background = malloc(sizeof(char)*MAX_COLORNAME_SIZE);
+  char *background;
 
   /**
    * Position X reference in HTML axis
    */
-  double position_x = 0;
+  double position_x;
 
   /**
    * Position Y reference in HTML axis
    */
-  double position_y = 0;
+  double position_y;
 
   /**
    * Line needs a thickness
    */
-  double lineWidth = 1;
-};
+  double line_width;
+}Drawable;
 
-typedef struct Elipse {
+typedef struct elipse {
   struct Drawable * drawable;
   double focus1;
   double focus2;
   double distance;
-};
+}Elipse;
 
 /**
  * With Arc we build a circle
  */
-typedef struct Arc {
+typedef struct arc {
   struct Drawable * drawable;
   double radius;
-  double startAngle;
-  double finalAngle;
-};
+  double start_angle;
+  double final_angle;
+}Arc;
 
 /**
  * Is a arc with startAngle in 0 and finalAngle in 360
  */
-typedef struct Circle {
+typedef struct circle {
   struct Arc * arc;
-}
+}Circle;
 
-typedef struct Line {
-  struct Drawable * drawable;
+typedef struct line {
+  Drawable *drawable;
   double second_position_x;
   double second_position_y;
-};
+}Line;
 
-typedef struct Rectangle {
+typedef struct rectangle {
   struct Drawable * drawable;
   double width;
   double heigth;
-};
+}Rectangle;
