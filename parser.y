@@ -31,8 +31,9 @@ Input:
    ;
 Line:
    BREAK_LINE
-   | Expression BREAK_LINE { printf("Resultado: %f\n",$1); }
+   | Expression BREAK_LINE { printf(">>: %f\n",$1); }
    | Instance BREAK_LINE
+   | Attribution BREAK_LINE
    ;
 Expression:
    NUMBER { $$=$1; }
@@ -46,6 +47,9 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT KEYWORD { printf("Instance successful\n"); }
+   ;
+Attribution:
+   VARIABLE EQUALS NUMBER {printf("Number are passed!");}
    ;
 %%
 
