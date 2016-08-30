@@ -1,20 +1,31 @@
 %{
-#include "global.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+int yylex();
 %}
 
-%token NUMBER
-%token EQUALS DOT
+/* This part define which types syntax will work */
+%union {
+  char * string;
+  double numeral;
+}
+
+/* Operators */
+%token EQUALS DOT END_BLOCK
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token BREAK_LINE
-%token DRAW FUNCTION END_BLOCK
 
-%token VARIABLE PARAMETER
+%token VARIABLE
 %token TYPES
 %token KEYWORD
+%token NUMBER TEXT
+
+/* Associates type with token, support only two types */
+%type<numeral> Expression NUMBER
+%type<string> TEXT
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -27,11 +38,11 @@
 
 Input:
    /* Empty */
-   | Input Line
+   | Input Line { printf(">> "); }
    ;
 Line:
    BREAK_LINE
-   | Expression BREAK_LINE { printf(">>: %f\n",$1); }
+   | Expression BREAK_LINE { printf(">> %f\n",$1); }
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    ;
@@ -46,10 +57,12 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
 Instance:
-   VARIABLE EQUALS TYPES DOT KEYWORD { printf("Instance successful\n"); }
+   VARIABLE EQUALS TYPES DOT KEYWORD { printf("New instance \n"); }
    ;
 Attribution:
-   VARIABLE EQUALS NUMBER {printf("Number are passed!");}
+   VARIABLE EQUALS NUMBER { printf("Number passed!\n"); }
+   |
+   VARIABLE EQUALS TEXT { printf("Text passed\n"); }
    ;
 %%
 
@@ -58,5 +71,7 @@ int yyerror(char *s) {
 }
 
 int main(void) {
+   printf(">> Welcome to LazyCanvas Console\n");
+   printf(">> ");
    yyparse();
 }
