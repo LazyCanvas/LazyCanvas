@@ -14,7 +14,7 @@ exponant [eE][+-]?{integer}
 number {integer}("."{integer})?{exponant}?
 
 /* It are default objects in canvas */
-types (Elipse|Arc|Circle|Line|Rectangle)
+types (Elipse|Arc|Circle|Line|Rectangle|Canvas)
 
 /* Supported keywords of language */
 keyword (new|def)
@@ -40,7 +40,18 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 }
 
 {types} {
-  return(TYPES);
+
+  if(!strcmp(yytext,"Canvas")){
+    
+    return(CANVAS);
+
+  }
+  else{
+
+    return(TYPES);
+
+  }
+
 }
 
 {keyword} {
