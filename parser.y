@@ -60,29 +60,31 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT KEYWORD { printf("New instance \n"); }
-   | VARIABLE EQUALS CANVAS DOT KEYWORD
-     {
+   | VARIABLE EQUALS CANVAS DOT KEYWORD 
+     {  
         FILE * fp;
 
-        fp = fopen ("file.html", "w+");
-        fprintf(fp, "<!DOCTYPE html>");
-        fprintf(fp, "<html>");
-        fprintf(fp, "<body>");
-        fprintf(fp, "<canvas id=\"myCanvas\" width=\"200\" height=\"100\"");
-        fprintf(fp, "style=\"border:1px solid #c3c3c3;\">");
-        fprintf(fp, "Your browser does not support the canvas element.");
-        fprintf(fp, "</canvas>");
-        fprintf(fp, "<script>");
-        fprintf(fp, "var canvas = document.getElementById(\"myCanvas\");");
-        fprintf(fp, "var ctx = canvas.getContext(\"2d\");");
-        fprintf(fp, "ctx.fillStyle = \"#FF0000\";");
-        fprintf(fp, "ctx.fillRect(0,0,150,75);");
-        fprintf(fp, "</script>");
+        fp = fopen ("template/canvas.html", "w+");
+        fprintf(fp, "<!DOCTYPE html>\n");
+        fprintf(fp, "<html>\n");
+        fprintf(fp, "<body>\n");
+        fprintf(fp, "<canvas id=\"myCanvas\" width=\"100\" height=\"100\"\n");
+        fprintf(fp, "style=\"border:1px solid #c3c3c3;\">\n");
+        fprintf(fp, "Your browser does not support the canvas element.\n");
+        fprintf(fp, "</canvas>\n");
+        fprintf(fp, "<script>\n");
+        fprintf(fp, "var canvas = document.getElementById(\"myCanvas\");\n");
+        fprintf(fp, "var ctx = canvas.getContext(\"2d\");\n");
+        fprintf(fp, "ctx.fillStyle = \"#FF0000\";\n");
+        fprintf(fp, "ctx.fillRect(0,0,150,75);\n");
+        fprintf(fp, "</script>\n");
 
-        fprintf(fp, "</body>");
-        fprintf(fp, "</html>");
+        fprintf(fp, "</body>\n");
+        fprintf(fp, "</html>\n");
            
         fclose(fp);
+      
+        printf("Canvas criado e armazenado na pasta template!\n");
      }
    ;
 Attribution:
