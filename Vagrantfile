@@ -62,5 +62,6 @@ Vagrant.configure("2") do |config|
     apt-get install -y flex bison
     apt-get install -y vim
     apt-get install -y git
+    apt-get install -y gdb
   SHELL
 end
