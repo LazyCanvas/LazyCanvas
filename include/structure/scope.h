@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "objects.h"
 
 typedef struct node {
   struct node *next;
   struct node *previous;
   char *id;
+  char *name;
+  void *structure;
 } Node;
 
 typedef struct stack {
