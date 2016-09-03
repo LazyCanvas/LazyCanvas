@@ -1,5 +1,5 @@
-
-./vagrant
+#Vagrante files
+.vagrant/
 
 #Executable file
 lazyc
