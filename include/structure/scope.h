@@ -48,7 +48,12 @@ int create_scope(void) {
 }
 
 char* get_last_scope_id(void) {
-  return stack->head->id;
+  if(stack == NULL || stack->head == NULL) {
+    printf("Scope head cannot be null\n");
+    exit(0);
+  } else {
+    return stack->head->id;
+  }
 }
 
 Node* create_scope_node(char *id) {

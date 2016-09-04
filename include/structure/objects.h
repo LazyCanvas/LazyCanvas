@@ -64,6 +64,10 @@ int print_object_queue(ObjectNode *node) {
   }
 }
 
+ObjectNode* search_element(char* name) {
+  return search_element_with_same_name(queue->head, name);
+}
+
 ObjectNode* search_element_with_same_name(ObjectNode *node, char* name) {
   if(node == NULL) {
     return NULL;
