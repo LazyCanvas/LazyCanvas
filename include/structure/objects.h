@@ -2,14 +2,16 @@
 
 #define OBJECT_STACK_H
 
+#include <string.h>
+
 /*
  * Each object should be represents by this Node. To store objects Drawable was
  * created a stack, declared bellow, that will keep objects to use in any time.
  */
 typedef struct node {
-  struct object_node *next;
+  struct node *next;
   char *name;
-  int scope_id;
+  long long scope_id;
   void *structure;
 } ObjectNode;
 
@@ -20,7 +22,9 @@ typedef struct stack {
   ObjectNode *head;
 } ObjectStack;
 
-ObjectStack *object_stack;
+ObjectStack *object_stack = NULL;
+
+long long current_scope_id = 0;
 
 /*
  * Insert a new object into stack

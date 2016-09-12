@@ -9,7 +9,7 @@ CFLAGS = -g -Wall -std=c99 -Werror -O2
 CXX=gcc
 
 #Deps
-#DEPS=sample.h
+DEPS=../include/structure/objects.c
 
 #Name of the executable file
 TARGET=test
