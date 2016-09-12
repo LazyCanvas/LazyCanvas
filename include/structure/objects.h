@@ -1,93 +1,60 @@
-typedef struct object_node {
+#ifndef OBJECT_STACK_H
+
+#define OBJECT_STACK_H
+
+/*
+ * Each object should be represents by this Node. To store objects Drawable was
+ * created a stack, declared bellow, that will keep objects to use in any time.
+ */
+typedef struct node {
   struct object_node *next;
-  struct object_node *previous;
   char *name;
-  char *scope_id;
+  int scope_id;
   void *structure;
 } ObjectNode;
 
-typedef struct queue {
+/*
+ * When compiler is active, only one stack must be alive!
+ */
+typedef struct stack {
   ObjectNode *head;
-} Queue;
+} ObjectStack;
 
-Queue *queue;
+ObjectStack *object_stack;
 
-int insert_object_node(char*, char*, void*);
-ObjectNode* create_object_node(char*, char*, void*);
-int print_object_queue(ObjectNode*);
+/*
+ * Insert a new object into stack
+ */
+int push(char* name, int scope_id, void* structure);
 
+/*
+ * Create node! Used by push function
+ */
+ObjectNode* create_object_node(char* name, int scope_id, void* structure);
+
+/*
+ * Remove last element from stack
+ */
+ObjectNode* pop(void);
+
+/*
+ * Remove all elements in stack that have id like scope_id
+ */
+int remove_all_from_scope(int scope_id);
+
+/*
+ * Prints object stack from node
+ */
+int print_object_stack(ObjectNode* node);
+
+/*
+ * Search objects by name into stack
+ */
+ObjectNode* search_element(char* name);
+
+/*
+ * @deprecated
+ */
 ObjectNode* search_element_with_same_name(ObjectNode*, char*);
 
-int insert_object_node(char *name, char *scope_id, void *structure) {
-  ObjectNode *new_node = create_object_node(name, scope_id, structure);
-
-  if(queue == NULL) {
-    queue = (Queue*) malloc(sizeof(Queue));
-    queue->head = new_node;
-  } else {
-    ObjectNode *node = search_element_with_same_name(queue->head, name);
-    if(node == NULL) {
-      new_node->next = queue->head;
-      queue->head = new_node;
-    } else {
-      printf("previous declarition of %s was found\n", name);
-      exit(300);
-    }
-  }
-
-  return 1;
-}
-
-int remove_all_from_scope(char *scope_id) {
-
-  while(queue->head != NULL && strcmp(queue->head->scope_id, scope_id) == 0) {
-    pop();
-  }
-
-  return 1;
-}
-
-int pop(void) {
-  ObjectNode *node = queue->head;
-  queue->head = node->next;
-
-  free(node);
-  return 1;
-}
-
-int print_object_queue(ObjectNode *node) {
-  if(node == NULL) {
-    return 1;
-  } else {
-    printf("%s - %s\n", node->name, node->scope_id);
-    return print_object_queue(node->next);
-  }
-}
-
-ObjectNode* search_element(char* name) {
-  return search_element_with_same_name(queue->head, name);
-}
-
-ObjectNode* search_element_with_same_name(ObjectNode *node, char* name) {
-  if(node == NULL) {
-    return NULL;
-  } else {
-    if(strcmp(node->name, name) == 0) {
-      return node;
-    } else {
-      return search_element_with_same_name(node->next, name);
-    }
-  }
-}
-
-ObjectNode* create_object_node(char *name, char *scope_id, void *structure) {
-  ObjectNode *node = (ObjectNode*) malloc(sizeof(ObjectNode));
-
-  node->next = NULL;
-  node->previous = NULL;
-  node->name = name;
-  node->scope_id = scope_id;
-  node->structure = structure;
-
-  return node;
-}
+#endif
