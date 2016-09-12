@@ -45,6 +45,8 @@ typedef struct arc {
   double radius;
   double start_angle;
   double final_angle;
+  double center_x;
+  double center_y;
 }Arc;
 
 /**
