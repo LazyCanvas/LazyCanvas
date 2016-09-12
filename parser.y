@@ -1,4 +1,6 @@
 %{
+#include "structure/objects.c"
+#include "figure/drawable.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -28,6 +30,8 @@ int yylex();
 /* Associates type with token, support only two types */
 %type<numeral> Expression NUMBER
 %type<string> TEXT
+%type<string> VARIABLE
+%type<string> TYPES
 
 %left PLUS MINUS
 %left TIMES DIVIDE
@@ -59,40 +63,26 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
 Instance:
-   VARIABLE EQUALS TYPES DOT KEYWORD { printf("New instance \n"); }
-   | VARIABLE EQUALS CANVAS DOT KEYWORD 
-     {  
-        FILE * fp;
+   VARIABLE EQUALS TYPES DOT KEYWORD {
+     printf(">>created %s\n", $1);
 
-        fp = fopen ("template/canvas.html", "w+");
-        fprintf(fp, "<!DOCTYPE html>\n");
-        fprintf(fp, "<html>\n");
-        fprintf(fp, "<body>\n");
-        fprintf(fp, "<canvas id=\"myCanvas\" width=\"100\" height=\"100\"\n");
-        fprintf(fp, "style=\"border:1px solid #c3c3c3;\">\n");
-        fprintf(fp, "Your browser does not support the canvas element.\n");
-        fprintf(fp, "</canvas>\n");
-        fprintf(fp, "<script>\n");
-        fprintf(fp, "var canvas = document.getElementById(\"myCanvas\");\n");
-        fprintf(fp, "var ctx = canvas.getContext(\"2d\");\n");
-        fprintf(fp, "ctx.fillStyle = \"#FF0000\";\n");
-        fprintf(fp, "ctx.fillRect(0,0,150,75);\n");
-        fprintf(fp, "</script>\n");
+     void * structure;
 
-        fprintf(fp, "</body>\n");
-        fprintf(fp, "</html>\n");
-           
-        fclose(fp);
-      
-        printf("Canvas criado e armazenado na pasta template!\n");
+     char * type_name = $3;
+
+     if(strcmp(type_name, "Circle") == 0) {
+        structure = (Circle*) malloc(sizeof(Circle));
      }
+
+     push($1, current_scope_id, structure);
+   }
    ;
 Attribution:
-   VARIABLE EQUALS NUMBER { printf("Number passed!\n"); }
-   |
-   VARIABLE EQUALS TEXT { printf("Text passed\n"); }
+   VARIABLE
+   | VARIABLE EQUALS NUMBER { printf("Number passed are!\n"); }
+   | VARIABLE EQUALS TEXT { printf("Text passed\n"); }
    ;
-  
+
 %%
 
 int yyerror(char *s) {

@@ -3,6 +3,8 @@
 #define OBJECT_STACK_H
 
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /*
  * Each object should be represents by this Node. To store objects Drawable was
