@@ -47,6 +47,56 @@ int drawCircle(Circle *circle) {
   return 1;
 }
 
+int drawLine(Line *line){
+  fp = fopen (JS_TEMPLATE, "a");
+
+  beginPath();
+  fprintf(fp, "moveTo(0,0)\n");//Para desenhar a linha precisa do moveTo setado
+  fprintf(fp, "%s.lineTo(%f,%f);\n", CONTEXT, line->second_position_x,
+  line->second_position_y );
+  stroke();
+
+  fclose(fp);
+  return 1;
+}
+
+int drawRectangle(Rectangle *rectangle){
+  fp = fopen (JS_TEMPLATE, "a");
+
+  beginPath();
+  fprintf(fp, "%s.rect(0,0,%f,%f);\n", CONTEXT, rectangle->width,
+  rectangle->heigth );
+  stroke();
+
+  fclose(fp);
+  return 1;
+}
+
+int drawElipse(Elipse *elipse){
+  fp = fopen (JS_TEMPLATE, "a");
+  double center_x =0, center_y=0;
+
+  beginPath();
+  fprintf(fp, "%s.ellipse(0,0,%f,%f,0,0,2 * Math.PI,false);\n", CONTEXT,
+  elipse->focus1, elipse->focus2);
+  stroke();
+
+  fclose(fp);
+  return 1;
+}
+
+int drawArc(Arc *arc){
+  fp = fopen (JS_TEMPLATE, "a");
+
+  beginPath();
+  fprintf(fp, "%s.arc(%f,%f,%f,%f,%f * Math.PI ,%f * Math.PI);\n", CONTEXT,
+  arc->center_x, arc->center_y,arc->radius,arc->start_angle,arc->final_angle );
+  stroke();
+
+  fclose(fp);
+  return 1;
+}
+
 void drawBackground(char * background) {
   fp = fopen (JS_TEMPLATE, "a");
   fprintf(fp, "%s.background = %s", CONTEXT, background);
