@@ -64,23 +64,30 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT KEYWORD {
-     printf(">>created %s\n", $1);
-
-     void * structure;
-
+     char * variable_name = $1;
      char * type_name = $3;
+     void * structure;
 
      if(strcmp(type_name, "Circle") == 0) {
         structure = (Circle*) malloc(sizeof(Circle));
      }
 
-     push($1, current_scope_id, structure);
+     push(variable_name, current_scope_id, structure);
+     printf(">> created %s\n", variable_name);
    }
    ;
 Attribution:
    VARIABLE
    | VARIABLE EQUALS NUMBER { printf("Number passed are!\n"); }
    | VARIABLE EQUALS TEXT { printf("Text passed\n"); }
+   /* Attribution of object with numerical type */
+   | VARIABLE DOT VARIABLE EQUALS TEXT {
+     printf("Textual Attribution\n");
+   }
+   /* Attribution of object with textual type */
+   | VARIABLE DOT VARIABLE EQUALS NUMBER {
+     printf("Numerical Attribution\n");
+   }
    ;
 
 %%
