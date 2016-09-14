@@ -41,6 +41,12 @@ int drawCircle(Circle *circle) {
 
   beginPath();
   fprintf(fp, "%s.arc(100, 100, %f, 0, 2 * Math.PI);", CONTEXT, circle->radius);
+  
+  printf("%d %s",circle->drawable->position_x,circle->drawable->background); 
+  if(circle->drawable->background != NULL){
+  fprintf(fp, "%s.fillStyle = \"%s\";\n%s.fill()\n", CONTEXT, circle->drawable->background,CONTEXT);
+
+  }
   stroke();
 
   fclose(fp);
@@ -102,11 +108,10 @@ void drawBackground(char * background) {
   fprintf(fp, "%s.fillStyle = %s", CONTEXT, background);
   fprintf(fp, "%s.fillRect(0,0,lazy_canvas.width,lazy_canvas.height)", CONTEXT);
 }
-}
 
 void cleanCanvas(){
   fp = fopen(JS_TEMPLATE,"w");
-  fprintf(fp,"var myCanvas = document.getElementById(\"lazy_canvas\"); \nvar ctx = myCanvas.getContext(\"2d\");");
+  fprintf(fp,"var myCanvas = document.getElementById(\"lazy_canvas\");\nvar ctx = myCanvas.getContext(\"2d\");\n");
 
 }
 

@@ -53,7 +53,7 @@ typedef struct arc {
  * Is a arc with startAngle in 0 and finalAngle in 360
  */
 typedef struct circle {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double radius;
 }Circle;
 
