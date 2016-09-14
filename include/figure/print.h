@@ -99,7 +99,9 @@ int drawArc(Arc *arc){
 
 void drawBackground(char * background) {
   fp = fopen (JS_TEMPLATE, "a");
-  fprintf(fp, "%s.background = %s", CONTEXT, background);
+  fprintf(fp, "%s.fillStyle = %s", CONTEXT, background);
+  fprintf(fp, "%s.fillRect(0,0,lazy_canvas.width,lazy_canvas.height)", CONTEXT);
+}
 }
 
 void cleanCanvas(){
