@@ -45,13 +45,16 @@ typedef struct arc {
   double radius;
   double start_angle;
   double final_angle;
+  double center_x;
+  double center_y;
 }Arc;
 
 /**
  * Is a arc with startAngle in 0 and finalAngle in 360
  */
 typedef struct circle {
-  struct Arc * arc;
+  Drawable * drawable;
+  double radius;
 }Circle;
 
 typedef struct line {
