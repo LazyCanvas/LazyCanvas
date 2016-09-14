@@ -101,3 +101,10 @@ void drawBackground(char * background) {
   fp = fopen (JS_TEMPLATE, "a");
   fprintf(fp, "%s.background = %s", CONTEXT, background);
 }
+
+void cleanCanvas(){
+  fp = fopen(JS_TEMPLATE,"w");
+  fprintf(fp,"var myCanvas = document.getElementById(\"lazy_canvas\"); \nvar ctx = myCanvas.getContext(\"2d\");");
+
+}
+
