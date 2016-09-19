@@ -31,7 +31,7 @@ typedef struct drawable {
 }Drawable;
 
 typedef struct elipse {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double focus1;
   double focus2;
   double distance;
@@ -41,7 +41,7 @@ typedef struct elipse {
  * With Arc we build a circle
  */
 typedef struct arc {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double radius;
   double start_angle;
   double final_angle;
@@ -64,7 +64,7 @@ typedef struct line {
 }Line;
 
 typedef struct rectangle {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double width;
   double heigth;
 }Rectangle;

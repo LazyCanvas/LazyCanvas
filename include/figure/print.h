@@ -40,9 +40,9 @@ int drawCircle(Circle *circle) {
   fp = fopen (JS_TEMPLATE, "a");
 
   beginPath();
-  fprintf(fp, "%s.arc(100, 100, %f, 0, 2 * Math.PI);", CONTEXT, circle->radius);
+  fprintf(fp, "%s.arc(100, 100, %f, 0, 2 * Math.PI);\n", CONTEXT, circle->radius);
   
-  printf("%d %s",circle->drawable->position_x,circle->drawable->background); 
+  printf("%f %s",circle->drawable->position_x,circle->drawable->background); 
   if(circle->drawable->background != NULL){
   fprintf(fp, "%s.fillStyle = \"%s\";\n%s.fill()\n", CONTEXT, circle->drawable->background,CONTEXT);
 
