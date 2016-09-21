@@ -1,4 +1,3 @@
-#include "../structure/scope.h"
 #include "drawable.h"
 #include "print.h"
 
@@ -29,7 +28,7 @@ void instance_line(double position_x, double position_y, double second_position_
   line->second_position_x = second_position_x;
   line->second_position_y = second_position_y;
 
-  insert_object_node(name, get_last_scope_id(), line);
+  push(name, current_scope_id, line);
 }
 
 Drawable* instance_drawable(char* background, double position_x, double position_y, double line_width) {

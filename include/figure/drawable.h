@@ -1,3 +1,7 @@
+#ifndef DRAWABLE_H
+
+#define DRAWABLE_H
+
 /**
  * The biggest color name supported by HTML is LightGoldenRodYellow
  * and it have 20 chars.
@@ -68,3 +72,5 @@ typedef struct rectangle {
   double width;
   double heigth;
 }Rectangle;
+
+#endif
