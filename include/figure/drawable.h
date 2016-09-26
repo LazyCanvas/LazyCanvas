@@ -8,13 +8,10 @@
  */
 #define MAX_COLORNAME_SIZE 25 * sizeof(char)
 
-typedef enum structure_type {CIRCLE = 1, ELIPSE = 2, RECTANGLE = 3, LINE = 4, ARC = 5} StructureType;
-
 /**
  * All structure drawable should contains this
  */
 typedef struct drawable {
-  StructureType object_type;
   /**
    * This should accept Hexadecimal and Colors by name,
    * as long they are supported by HTML.

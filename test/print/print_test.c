@@ -1,34 +1,35 @@
 #include "../../include/figure/drawable.h"
-#include "../../include/figure/print.h"
 #include "../../include/structure/objects.c"
 #include "../../include/figure/instances.h"
+#include "../../include/figure/print.h"
 
 int main() {
 
-  instance_circle(100, 100, 10, 2, "#fff", "circle");
-  draw_circle(search_element("circle")->structure);
-  instance_circle(150, 100, 10, 2, "#fff", "circle2");
-  draw_circle(search_element("circle2")->structure);
-  instance_line(100, 100, 150, 100, 3, "green", "line");
-  draw_line(search_element("line")->structure);
+  Drawable *drawable = instance_drawable("bckg", 0, 0, 1);
+  Line* line = (Line*) malloc(sizeof(Line));
+  line->drawable = drawable;
+  line->second_position_x = 10;
+  line->second_position_y = 20;
 
-  //
-  // Line *line = (Line*) malloc(sizeof(Line));
-  // line->second_position_x = 100;
-  // line->second_position_y = 200;
-  // drawLine(line);
+  push("a", current_scope_id, line);
+
+  ObjectNode *node = search_element("a");
+  node->object_type = LINE;
+
+  draw(node);
+
+  return 0;
   //
   // Rectangle *rectangle = (Rectangle*) malloc(sizeof(Rectangle));
   // rectangle->width = 50;
   // rectangle->heigth = 30;
-  // drawRectangle(rectangle);
+  // draw(rectangle);
   //
   // Elipse *elipse = (Elipse*) malloc(sizeof(Elipse));
   // elipse->focus1 = 60;
   // elipse->focus2 = 70;
   // elipse->distance = 20;
-  // drawElipse(elipse);
-  //
+  // draw(elipse);
   //
   // Arc *arc = (Arc*) malloc(sizeof(Arc));
   // arc->radius = 60;
@@ -36,6 +37,6 @@ int main() {
   // arc->final_angle = 20;
   // arc->center_x = 10;
   // arc->center_y = 20;
-  // drawArc(arc);
+  // draw(arc);
 
 }
