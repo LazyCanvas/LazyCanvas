@@ -34,12 +34,14 @@ long long current_scope_id = 0;
 /*
  * Insert a new object into stack
  */
-int push(char* name, int scope_id, void* structure);
+int push(char* name, int scope_id, void* structure,
+  StructureType structure_type);
 
 /*
  * Create node! Used by push function
  */
-ObjectNode* create_object_node(char* name, int scope_id, void* structure);
+ObjectNode* create_object_node(char* name, int scope_id, void* structure,
+  StructureType structure_type);
 
 /*
  * Remove last element from stack

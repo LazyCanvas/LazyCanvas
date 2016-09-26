@@ -1,9 +1,10 @@
 #include "objects.h"
 
-int push(char *name, int scope_id, void *structure) {
+int push(char *name, int scope_id, void *structure, StructureType structure_type) {
   int pushed = -1;
 
-  ObjectNode *new_node = create_object_node(name, scope_id, structure);
+  ObjectNode *new_node = create_object_node(name, scope_id, structure,
+    structure_type);
 
   if(object_stack == NULL) {
     object_stack = (ObjectStack*) malloc(sizeof(ObjectStack));
@@ -34,13 +35,15 @@ int push(char *name, int scope_id, void *structure) {
   return pushed;
 }
 
-ObjectNode* create_object_node(char *name, int scope_id, void *structure) {
+ObjectNode* create_object_node(char *name, int scope_id, void *structure,
+  StructureType structure_type) {
   ObjectNode *node = (ObjectNode*) malloc(sizeof(ObjectNode));
 
   node->next = NULL;
   node->name = name;
   node->scope_id = scope_id;
   node->structure = structure;
+  node->object_type = structure_type;
 
   return node;
 }
