@@ -65,6 +65,7 @@ int draw_circle(Circle *circle) {
   begin_path();
   fprintf(fp, "%s.arc(100, 100, %f, 0, 2 * Math.PI);", CONTEXT, circle->radius);
   draw(circle->drawable);
+
   stroke();
   fill();
 

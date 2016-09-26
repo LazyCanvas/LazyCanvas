@@ -8,10 +8,13 @@
  */
 #define MAX_COLORNAME_SIZE 25 * sizeof(char)
 
+typedef enum structure_type {CIRCLE = 1, ELIPSE = 2, RECTANGLE = 3, LINE = 4, ARC = 5} StructureType;
+
 /**
  * All structure drawable should contains this
  */
 typedef struct drawable {
+  StructureType object_type;
   /**
    * This should accept Hexadecimal and Colors by name,
    * as long they are supported by HTML.
@@ -35,7 +38,7 @@ typedef struct drawable {
 }Drawable;
 
 typedef struct elipse {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double focus1;
   double focus2;
   double distance;
@@ -45,7 +48,7 @@ typedef struct elipse {
  * With Arc we build a circle
  */
 typedef struct arc {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double radius;
   double start_angle;
   double final_angle;
@@ -68,7 +71,7 @@ typedef struct line {
 }Line;
 
 typedef struct rectangle {
-  struct Drawable * drawable;
+  Drawable * drawable;
   double width;
   double heigth;
 }Rectangle;
