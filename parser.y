@@ -1,6 +1,8 @@
 %{
 #include "structure/objects.c"
 #include "figure/drawable.h"
+#include "instance.c"
+#include "attribution.c"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -64,22 +66,19 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT KEYWORD {
-     char * variable_name = $1;
-     char * type_name = $3;
-     void * structure;
-
-     if(strcmp(type_name, "Circle") == 0) {
-        structure = (Circle*) malloc(sizeof(Circle));
-     }
-
-     push(variable_name, current_scope_id, structure);
-     printf(">> created %s\n", variable_name);
+     instance_object($1, $3);
    }
    ;
 Attribution:
    VARIABLE
-   | VARIABLE EQUALS NUMBER { printf("Number passed are!\n"); }
-   | VARIABLE EQUALS TEXT { printf("Text passed\n"); }
+   | VARIABLE EQUALS NUMBER {
+     put_new_number($1, VAR_NUMBER, $3);
+   }
+   ;
+   | VARIABLE EQUALS TEXT {
+     put_new_text($1, VAR_TEXT, $3);
+   }
+   ;
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
      printf("Textual Attribution\n");

@@ -6,6 +6,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef enum structure_type {
+  CIRCLE = 1,
+  ELIPSE = 2,
+  RECTANGLE = 3,
+  LINE = 4,
+  ARC = 5,
+  VAR_TEXT = 6,
+  VAR_NUMBER = 7
+} StructureType;
+
 /*
  * Each object should be represents by this Node. To store objects Drawable was
  * created a stack, declared bellow, that will keep objects to use in any time.
@@ -15,6 +25,7 @@ typedef struct node {
   char *name;
   long long scope_id;
   void *structure;
+  StructureType object_type;
 } ObjectNode;
 
 /*
@@ -31,12 +42,14 @@ long long current_scope_id = 0;
 /*
  * Insert a new object into stack
  */
-int push(char* name, int scope_id, void* structure);
+int push(char* name, int scope_id, void* structure,
+  StructureType structure_type);
 
 /*
  * Create node! Used by push function
  */
-ObjectNode* create_object_node(char* name, int scope_id, void* structure);
+ObjectNode* create_object_node(char* name, int scope_id, void* structure,
+  StructureType structure_type);
 
 /*
  * Remove last element from stack

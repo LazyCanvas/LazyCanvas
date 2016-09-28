@@ -1,9 +1,10 @@
 #include "objects.h"
 
-int push(char *name, int scope_id, void *structure) {
-  int pushed = -1;
+int push(char *name, int scope_id, void *structure, StructureType structure_type) {
+  int pushed = 0;
 
-  ObjectNode *new_node = create_object_node(name, scope_id, structure);
+  ObjectNode *new_node = create_object_node(name, scope_id, structure,
+    structure_type);
 
   if(object_stack == NULL) {
     object_stack = (ObjectStack*) malloc(sizeof(ObjectStack));
@@ -21,8 +22,7 @@ int push(char *name, int scope_id, void *structure) {
       int already_used_in_scope = (node->scope_id == current_scope_id);
 
       if(already_used_in_scope) {
-        printf("Previous declarition of %s was found\n", name);
-        pushed = -1;
+        pushed = 0;
       } else {
         new_node->next = object_stack->head;
         object_stack->head = new_node;
@@ -34,13 +34,15 @@ int push(char *name, int scope_id, void *structure) {
   return pushed;
 }
 
-ObjectNode* create_object_node(char *name, int scope_id, void *structure) {
+ObjectNode* create_object_node(char *name, int scope_id, void *structure,
+  StructureType structure_type) {
   ObjectNode *node = (ObjectNode*) malloc(sizeof(ObjectNode));
 
   node->next = NULL;
   node->name = name;
   node->scope_id = scope_id;
   node->structure = structure;
+  node->object_type = structure_type;
 
   return node;
 }
