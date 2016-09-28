@@ -1,7 +1,7 @@
 #include "objects.h"
 
 int push(char *name, int scope_id, void *structure, StructureType structure_type) {
-  int pushed = -1;
+  int pushed = 0;
 
   ObjectNode *new_node = create_object_node(name, scope_id, structure,
     structure_type);
@@ -22,7 +22,7 @@ int push(char *name, int scope_id, void *structure, StructureType structure_type
       int already_used_in_scope = (node->scope_id == current_scope_id);
 
       if(already_used_in_scope) {
-        pushed = -1;
+        pushed = 0;
       } else {
         new_node->next = object_stack->head;
         object_stack->head = new_node;

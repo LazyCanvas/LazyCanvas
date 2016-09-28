@@ -34,7 +34,7 @@ void instance_object(char *variable_name, char *type_name) {
   }
 
   int pushed = push(variable_name, current_scope_id, structure, object_type);
-
+  printf("pushed is %d\n", pushed);
   if(pushed) {
     printf(">> #%s<%s>\n", variable_name, type_name);
   } else {
