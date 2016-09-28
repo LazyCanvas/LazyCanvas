@@ -3,6 +3,7 @@
 
 #Executable file
 lazyc
+/test/test
 
 # Generated code
 /include/syntax.c

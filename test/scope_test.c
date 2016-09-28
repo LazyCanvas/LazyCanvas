@@ -1,84 +1,123 @@
-#include "test.h"
-// includes to test
+#include "unity/unity.h"
 #include "../include/structure/objects.c"
 #include "../include/figure/drawable.h"
+#include "../include/variable.h"
 
-// should be SUCCESS
-void test_init_scope(void) {
+// used to push fast a object
+void push_variable_text(char *var_name, long long scope_id, char *value) {
+  Text *txt = (Text*) malloc(sizeof(Text));
+  txt->value = value;
+
+  push(var_name, scope_id, txt, VAR_TEXT);
+}
+
+void setUp(void) {
+  // same name! Should cause error
+  char *variable_name = "testXPTO";
+
+  Text *structure = (Text*) malloc(sizeof(Text));
+  structure->value = "testValue";
+
+  push(variable_name, current_scope_id, structure, VAR_TEXT);
+}
+
+void tearDown(void) {
+  clean_stack();
+}
+
+void test_scope_active_with_same_variable_name(void) {
+  // same name! Should cause error
+  char *variable_name = "variableTest";
+
+  Text *structure = (Text*) malloc(sizeof(Text));
+  structure->value = "testValue";
+  int result = push(variable_name, current_scope_id, structure, VAR_TEXT);
+  TEST_ASSERT_TRUE(result);
+
+  Text *structure2 = (Text*) malloc(sizeof(Text));
+  structure2->value = "testValue";
+  // should return -1
+  result = push(variable_name, current_scope_id, structure2, VAR_TEXT);
+
+  TEST_ASSERT_FALSE(result);
+}
+
+void test_scope_active_with_other_variable_name(void) {
+  // setUp already put a default object into stack
+  char *other_name = "variableTest";
+
+  Text *structure2 = (Text*) malloc(sizeof(Text));
+  structure2->value = "testValue";
+
+  int result = push(other_name, current_scope_id, structure2, VAR_TEXT);
+
+  TEST_ASSERT(result);
+}
+
+void test_init_scope_with_success(void) {
   char *name = "variableTest";
   // into new scope
   int scope_id = current_scope_id + 1;
   // empty variable
   Elipse *elipse = (Elipse*) malloc(sizeof(ObjectNode));
 
-  int result = push(name, scope_id, elipse);
+  int result = push(name, scope_id, elipse, ELIPSE);
 
-  printf("Head of stack are %s\n", object_stack->head->name);
-
-  assert_eq_int(1, result);
+  TEST_ASSERT(result);
 }
 
-// should be SUCCESS
-void test_scope_active_with_another_name(void) {
-  test_init_scope();
-
-  char *name = "anotherTest";
-  // same scope of init_scope
-  int scope_id = current_scope_id;
-  // empty variable
-  Elipse *elipse = (Elipse*) malloc(sizeof(ObjectNode));
-
-  int result = push(name, scope_id, elipse);
-
-  assert_eq_int(1, result);
+void test_pop_scope(void) {
+  TEST_ASSERT_NOT_NULL(object_stack->head);
+  // removes unique node added by setUp
+  pop();
+  // wait a null on head of stack
+  TEST_ASSERT_NULL(object_stack->head);
 }
 
-// should be SUCCESS
-void test_scope_active_with_same_variable_name(void) {
-  test_init_scope();
-
-  // same name! Cause error
-  char *name = "variableTest";
-  // same scope of init_scope
-  current_scope_id++;
-  int scope_id = current_scope_id;
-
-  // empty variable
-  Elipse *elipse = (Elipse*) malloc(sizeof(ObjectNode));
-
-  int result = push(name, scope_id, elipse);
-
-  assert_eq_int(-1, result);
+void test_search_element(void) {
+  // pushed in setUp
+  TEST_ASSERT_NOT_NULL(search_element("testXPTO"));
 }
 
-void test_scope_active_with_other_variable_name(void) {
-  // call this to simulate a first object setted
-  test_init_scope();
+void test_search_inexistent_element(void) {
+  // Variable 'never' not exists into stack
+  TEST_ASSERT_NULL(search_element("never"));
+}
 
-  // Other name! Should pass
-  char *name = "variableOther";
-  // same scope of init_scope
-  current_scope_id++;
-  int scope_id = current_scope_id;
+void test_remove_all_from_scope(void) {
+  // Push a variable to stack
+  push_variable_text("xpto", 7, "unit test");
+  // if variable name is searched a Node are returned
+  TEST_ASSERT_NOT_NULL(search_element("xpto"));
 
-  // empty variable
-  Elipse *elipse = (Elipse*) malloc(sizeof(ObjectNode));
+  // Remove all scopes
+  TEST_ASSERT_EQUAL(1, remove_all_from_scope(7));
+  TEST_ASSERT_NULL(search_element("xpto"));
+}
 
-  int result = push(name, scope_id, elipse);
+void test_remove_all_from_inexistent_scope(void) {
+  long inexistent_scope = 123456;
+  // Remove all scopes
+  TEST_ASSERT_EQUAL(0, remove_all_from_scope(inexistent_scope));
+}
 
-  assert_eq_int(1, result);
-
-  print_object_stack(object_stack->head);
+void test_clean_stack(void) {
+  // Push a variable to stack, now have 2 variables
+  push_variable_text("xpto", 7, "unit test");
+  clean_stack();
+  TEST_ASSERT_NULL(object_stack->head);
 }
 
 int main(void) {
-  /* Bellow tests are to push function */
-
-  // test_init_scope();
-  // test_scope_active_with_another_name();
-  // test_scope_active_with_same_variable_name();
-  // test_scope_active_with_other_variable_name();
-
-  
-  return 0;
+  UNITY_BEGIN();
+  RUN_TEST(test_init_scope_with_success);
+  RUN_TEST(test_scope_active_with_same_variable_name);
+  RUN_TEST(test_scope_active_with_other_variable_name);
+  RUN_TEST(test_pop_scope);
+  RUN_TEST(test_search_element);
+  RUN_TEST(test_search_inexistent_element);
+  RUN_TEST(test_remove_all_from_scope);
+  RUN_TEST(test_remove_all_from_inexistent_scope);
+  RUN_TEST(test_clean_stack);
+  return UNITY_END();
 }
