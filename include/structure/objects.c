@@ -22,7 +22,6 @@ int push(char *name, int scope_id, void *structure, StructureType structure_type
       int already_used_in_scope = (node->scope_id == current_scope_id);
 
       if(already_used_in_scope) {
-        printf("Previous declarition of %s was found\n", name);
         pushed = -1;
       } else {
         new_node->next = object_stack->head;

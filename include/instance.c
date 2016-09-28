@@ -1,3 +1,7 @@
+#ifndef INSTANCE_H
+
+#define INSTANCE_H value
+
 #include "object_types.h"
 
 void instance_object(char *variable_name, char *type_name) {
@@ -29,7 +33,14 @@ void instance_object(char *variable_name, char *type_name) {
      object_type = ARC;
   }
 
-  push(variable_name, current_scope_id, structure, object_type);
+  int pushed = push(variable_name, current_scope_id, structure, object_type);
 
-  printf(">> #%s<%s>\n", variable_name, type_name);
+  if(pushed) {
+    printf(">> #%s<%s>\n", variable_name, type_name);
+  } else {
+    printf(">> Variable '%s' already used\n", variable_name);
+  }
+
 }
+
+#endif
