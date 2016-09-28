@@ -1,9 +1,13 @@
 #ifndef INSTANCE_H
 
-#define INSTANCE_H value
+#define INSTANCE_H
 
 #include "object_types.h"
 
+/**
+ * This function identifies which object type is passed pushing
+ * it for object stack with your value
+ */
 void instance_object(char *variable_name, char *type_name) {
   void * structure;
   StructureType object_type;
@@ -34,7 +38,7 @@ void instance_object(char *variable_name, char *type_name) {
   }
 
   int pushed = push(variable_name, current_scope_id, structure, object_type);
-  printf("pushed is %d\n", pushed);
+
   if(pushed) {
     printf(">> #%s<%s>\n", variable_name, type_name);
   } else {

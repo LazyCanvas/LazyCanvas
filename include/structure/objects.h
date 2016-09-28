@@ -6,7 +6,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef enum structure_type {CIRCLE = 1, ELIPSE = 2, RECTANGLE = 3, LINE = 4, ARC = 5} StructureType;
+typedef enum structure_type {
+  CIRCLE = 1,
+  ELIPSE = 2,
+  RECTANGLE = 3,
+  LINE = 4,
+  ARC = 5,
+  VAR_TEXT = 6,
+  VAR_NUMBER = 7
+} StructureType;
 
 /*
  * Each object should be represents by this Node. To store objects Drawable was
