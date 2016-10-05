@@ -22,6 +22,11 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
 
 void print_no_attribute(char *variable_name, char *attribue);
 
+Drawable* init_drawable();
+
+Drawable* init_drawable() {
+  return (Drawable*) malloc(sizeof(Drawable));
+}
 /**
  * This function identifies which object type is passed pushing
  * it for object stack with your value
@@ -31,28 +36,38 @@ void instance_object(char *variable_name, char *type_name) {
   StructureType object_type;
 
   if(strcmp(type_name, CIRCLE_NAME) == 0) {
-     structure = (Circle*) malloc(sizeof(Circle));
-     object_type = CIRCLE;
+    Circle* circle = (Circle*) malloc(sizeof(Circle));
+    circle->drawable = init_drawable();
+    structure = circle;
+    object_type = CIRCLE;
   }
 
   if(strcmp(type_name, ELIPSE_NAME) == 0) {
-     structure = (Elipse*) malloc(sizeof(Elipse));
-     object_type = ELIPSE;
+    Elipse* elipse = (Elipse*) malloc(sizeof(Elipse));
+    elipse->drawable = init_drawable();
+    structure = elipse;
+    object_type = ELIPSE;
   }
 
   if(strcmp(type_name, RECTANGLE_NAME) == 0) {
-     structure = (Rectangle*) malloc(sizeof(Rectangle));
-     object_type = RECTANGLE;
+    Rectangle* rectangle = malloc(sizeof(Rectangle));
+    rectangle->drawable = init_drawable();
+    structure = rectangle;
+    object_type = RECTANGLE;
   }
 
   if(strcmp(type_name, LINE_NAME) == 0) {
-     structure = (Line*) malloc(sizeof(Line));
-     object_type = LINE;
+    Line* line = (Line*) malloc(sizeof(Line));
+    line->drawable = init_drawable();
+    structure = init_drawable();
+    object_type = LINE;
   }
 
   if(strcmp(type_name, ARC_NAME) == 0) {
-     structure = (Arc*) malloc(sizeof(Arc));
-     object_type = ARC;
+    Arc* arc = (Arc*) malloc(sizeof(Arc));
+    arc->drawable = init_drawable();
+    structure = arc;
+    object_type = ARC;
   }
 
   int pushed = push(variable_name, current_scope_id, structure, object_type);
@@ -107,7 +122,7 @@ void attribution_on_circle(Circle *circle, char *attribute, void *text, char *va
   if(strcmp(attribute, RADIUS) == 0) {
     circle->radius = *((double*) text);
   } else if(strcmp(attribute, BACKGROUND) == 0) {
-    circle->drawable->background = (*char) text;
+    circle->drawable->background = (char*) text;
     printf("alterando o background");
   } else if(strcmp(attribute, X) == 0) {
     printf("alterando o x");
