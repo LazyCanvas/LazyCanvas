@@ -22,10 +22,16 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
 
 void print_no_attribute(char *variable_name, char *attribue);
 
+double parse_double(void* text);
+
 Drawable* init_drawable();
 
 Drawable* init_drawable() {
   return (Drawable*) malloc(sizeof(Drawable));
+}
+
+double parse_double(void* text) {
+  return *((double*) text);
 }
 /**
  * This function identifies which object type is passed pushing
@@ -123,13 +129,12 @@ void attribution_on_circle(Circle *circle, char *attribute, void *text, char *va
     circle->radius = *((double*) text);
   } else if(strcmp(attribute, BACKGROUND) == 0) {
     circle->drawable->background = (char*) text;
-    printf("alterando o background");
   } else if(strcmp(attribute, X) == 0) {
-    printf("alterando o x");
+    circle->drawable->position_x = parse_double(text);
   } else if(strcmp(attribute, Y) == 0) {
-    printf("alterando o y");
+    circle->drawable->position_y = parse_double(text);
   } else if(strcmp(attribute, LINE_WIDTH) == 0) {
-    printf("alterando o lineWidth");
+    circle->drawable->line_width = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
