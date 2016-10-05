@@ -83,9 +83,10 @@ Attribution:
    | VARIABLE DOT VARIABLE EQUALS TEXT {
       include_text_on_object_attribute($1, $3, $5);
    }
+   ;
    /* Attribution of object with textual type */
    | VARIABLE DOT VARIABLE EQUALS NUMBER {
-     printf("Numerical Attribution\n");
+     include_number_on_object_attribute($1, $3, $5);
    }
    ;
 
