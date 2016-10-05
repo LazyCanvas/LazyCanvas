@@ -145,30 +145,30 @@ void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *va
 }
 
 void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name) {
-  if(strcmp(attribute, X)==0) {
-    printf("alterando o x1");
+ if(strcmp(attribute, X)==0) {
+    rectangle->drawable->position_x = parse_double(text);    
   } else if(strcmp(attribute, X1)==0) {
-    printf("alterando o x2");
+    rectangle->x1 = parse_double(text);    
   } else if(strcmp(attribute, X2)==0) {
-    printf("alterando o x3");
+    rectangle->x2 = parse_double(text);    
   } else if(strcmp(attribute, X3)==0) {
-    printf("alterando o x4");
+    rectangle->x3 = parse_double(text);    
   } else if(strcmp(attribute, Y)==0) {
-    printf("alterando o y1");
+    rectangle->drawable->position_y = parse_double(text);    
   } else if(strcmp(attribute, Y1)==0) {
-    printf("alterando o y2");
+    rectangle->y1 = parse_double(text);    
   } else if(strcmp(attribute, Y2)==0) {
-    printf("alterando o y3");
+    rectangle->y2 = parse_double(text);    
   } else if(strcmp(attribute, Y3)==0) {
-    printf("alterando o y4");
+    rectangle->y3 = parse_double(text);    
   } else if(strcmp(attribute, BACKGROUND)==0) {
-    printf("alterando o background");
+    rectangle->drawable->background = (char*)(text);    
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
-    printf("alterando o lineWidth");
+    rectangle->drawable->line_width = parse_double(text);    
   } else {
     print_no_attribute(variable_name, attribute);
   }
-}
+  }
 
 void attribution_on_line(Line* line, char *attribute, void *text, char *variable_name) {
   if(strcmp(attribute, X1)==0) {
