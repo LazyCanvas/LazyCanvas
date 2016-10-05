@@ -172,17 +172,17 @@ void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, 
 
 void attribution_on_line(Line* line, char *attribute, void *text, char *variable_name) {
   if(strcmp(attribute, X1)==0) {
-    printf("alterando o x1");
+    line->drawable->position_x = parse_double(text);
   } else if(strcmp(attribute, X2)==0) {
-    printf("alterando o x2");
+    line->second_position_x = parse_double(text);
   } else if(strcmp(attribute, Y1)==0) {
-    printf("alterando o y1");
+    line->drawable->position_y = parse_double(text);
   } else if(strcmp(attribute, Y2)==0) {
-    printf("alterando o y2");
+    line->second_position_y = parse_double(text);
   } else if(strcmp(attribute, BACKGROUND)==0) {
-    printf("alterando o background");
+    line->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
-    printf("alterando o lineWidth");
+    line->drawable->line_width = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
@@ -190,13 +190,13 @@ void attribution_on_line(Line* line, char *attribute, void *text, char *variable
 
 void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_name) {
   if(strcmp(attribute, CENTER_X)==0) {
-    printf("alterando o center x");
+    arc->drawable->position_x = parse_double(text);
   } else if(strcmp(attribute, CENTER_Y)==0) {
-    printf("alterando o x2");
+    arc->drawable->position_y = parse_double(text);
   } else if(strcmp(attribute, START_ANGLE)==0) {
-    printf("alterando o start angle");
+    arc->start_angle = parse_double(text);
   } else if(strcmp(attribute, FINAL_ANGLE)==0) {
-    printf("alterando o final angle");
+    arc->final_angle = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
