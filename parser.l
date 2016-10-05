@@ -5,7 +5,7 @@
 /* Definitions */
 blank [ \t]+
 /* Accept only numbers and letters beetwen (") */
-text ("\"")([a-zA-Z0-9_]*)("\"")
+text ("\"")(.+)("\"")
 
 /* To recognize negative numbers is used a pattern in parser.y */
 digit [0-9]
