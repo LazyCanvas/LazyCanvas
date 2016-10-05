@@ -81,7 +81,7 @@ Attribution:
    ;
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
-     include_text_on_object_attribute($1, $3, $5);
+      include_text_on_object_attribute($1, $3, $5);
    }
    ;
    /* Attribution of object with textual type */
