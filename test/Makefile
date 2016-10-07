@@ -1,30 +1,29 @@
-#
 # Makefile
-#
+# gcc unity/unity.c scope_test.c -o test
 
-#Flags used to compile files
+# Flags used to compile files
 CFLAGS = -g -Wall -std=c99 -Werror -O2
 
-#Compile
+# Compile
 CXX=gcc
 
-#Deps
-DEPS=../include/structure/objects.c
+# Deps
+DEPS=unity/unity.c
 
-#Name of the executable file
-TARGET=test
+# Name of the executable file
+EXECUTABLE=test
 
-#Files
-PROG1 = scope_test.c
-OBJ = scope_test.o
+# Files
+SRC=$(wildcard *.c) $(DEPS)
+OBJECTS = $(SRC:.c=.o)
 
-all: $(TARGET)
+all: $(EXECUTABLE)
 
 %.o: %.c $(DEPS)
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
-$(TARGET): $(OBJ)
+$(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(EXECUTABLE) *.o unity/unity.o

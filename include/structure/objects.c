@@ -19,7 +19,7 @@ int push(char *name, int scope_id, void *structure, StructureType structure_type
       pushed = 1;
     } else {
       // An same scope can not have same variable names
-      int already_used_in_scope = (node->scope_id == current_scope_id);
+      int already_used_in_scope = (node->scope_id <= current_scope_id);
 
       if(already_used_in_scope) {
         pushed = 0;
@@ -57,11 +57,17 @@ ObjectNode* pop(void) {
 }
 
 int remove_all_from_scope(int scope_id) {
-  while(object_stack->head != NULL && (object_stack->head->scope_id == scope_id)) {
+  // if some variable are removed, this should be set to 1
+  int remove_success = 0;
+  // if this scope is not the current, something is wrong
+  int equals_scope = (object_stack->head->scope_id == scope_id);
+
+  while(object_stack->head != NULL && equals_scope) {
     pop();
+    remove_success = 1;
   }
 
-  return 1;
+  return remove_success;
 }
 
 int print_object_stack(ObjectNode *node) {
@@ -89,5 +95,14 @@ ObjectNode* search_element_with_same_name(ObjectNode *node, char* name) {
     } else {
       return search_element_with_same_name(node->next, name);
     }
+  }
+}
+
+void clean_stack() {
+  while (object_stack->head != NULL) {
+    ObjectNode *node = object_stack->head;
+    object_stack->head = node->next;
+
+    free(node);
   }
 }

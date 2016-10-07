@@ -1,5 +1,4 @@
-#include "object_types.h"
-#include "variable.h"
+#include "attribution.h"
 
 /**
  * Create a new numerical variable

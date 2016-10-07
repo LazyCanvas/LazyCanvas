@@ -76,4 +76,9 @@ ObjectNode* search_element(char* name);
  */
 ObjectNode* search_element_with_same_name(ObjectNode*, char*);
 
+/*
+ * Clean all stack
+ */
+void clean_stack(void);
+
 #endif
