@@ -16,13 +16,13 @@ number {integer}("."{integer})?{exponant}?
 /* It are default objects in canvas */
 types (Elipse|Arc|Circle|Line|Rectangle)
 
-/* Supported keywords of language */
-keyword (new|def)
-
 /* All variable name should follow this pattern*/
 variable ([a-zA-Z_][a-zA-Z0-9_]*)
 
 %% /* Roles */
+
+"new" return(NEW_KEYWORD);
+"draw" return(DRAW_KEYWORD);
 
 {blank} {/* Ignore white characters */ }
 
@@ -44,10 +44,6 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
   return(TYPES);
 }
 
-{keyword} {
-  return(KEYWORD);
-}
-
 {variable} {
   yylval.string = strdup(yytext);
   return(VARIABLE);
@@ -63,7 +59,6 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 "=" return(EQUALS);
 "\n" return(BREAK_LINE);
 "." return(DOT);
-
 %%
 
 yywrap () {

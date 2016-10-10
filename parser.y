@@ -17,17 +17,18 @@ int yylex();
 }
 
 /* Operators */
-%token EQUALS DOT END_BLOCK
+%token EQUALS DOT
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token BREAK_LINE
 
+/* Some keywords */
+%token END_BLOCK NEW_KEYWORD DEF_KEYWORD DRAW_KEYWORD
+
+/* Data */
 %token VARIABLE
 %token TYPES
-%token KEYWORD
 %token NUMBER TEXT
-
-%token CANVAS
 
 /* Associates type with token, support only two types */
 %type<numeral> Expression NUMBER
@@ -53,6 +54,7 @@ Line:
    | Expression BREAK_LINE { printf(">> %f\n",$1); }
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
+   | Action BREAK_LINE
    ;
 Expression:
    NUMBER { $$=$1; }
@@ -65,13 +67,13 @@ Expression:
    | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
    ;
 Instance:
-   VARIABLE EQUALS TYPES DOT KEYWORD {
+   VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
      instance_object($1, $3);
    }
    ;
 Attribution:
    VARIABLE
-   | VARIABLE EQUALS NUMBER {
+   | VARIABLE EQUALS Expression {
      put_new_number($1, VAR_NUMBER, $3);
    }
    ;
@@ -84,11 +86,14 @@ Attribution:
      printf("Textual Attribution\n");
    }
    /* Attribution of object with textual type */
-   | VARIABLE DOT VARIABLE EQUALS NUMBER {
+   | VARIABLE DOT VARIABLE EQUALS Expression {
      printf("Numerical Attribution\n");
    }
    ;
-
+Action:
+  DRAW_KEYWORD LEFT_PARENTHESIS VARIABLE RIGHT_PARENTHESIS {
+    printf("Draw %s was called\n", $3);
+  }
 %%
 
 int yyerror(char *s) {
