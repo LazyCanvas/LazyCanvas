@@ -55,6 +55,16 @@ Line:
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
+   /* Search a variable */
+   | VARIABLE BREAK_LINE {
+      ObjectNode *finded = search_element($1);
+      if(finded != NULL) {
+        // TODO print variable value
+        printf(">> %s\n", finded->name);
+      } else {
+        printf(">> Variable not exists\n");
+      }
+   }
    ;
 Expression:
    NUMBER { $$=$1; }
@@ -72,8 +82,7 @@ Instance:
    }
    ;
 Attribution:
-   VARIABLE
-   | VARIABLE EQUALS Expression {
+   VARIABLE EQUALS Expression {
      put_new_number($1, VAR_NUMBER, $3);
    }
    ;
@@ -97,7 +106,7 @@ Action:
 %%
 
 int yyerror(char *s) {
-   printf("%s\n",s);
+   printf(">> ERROR: %s\n",s);
 }
 
 int main(void) {
