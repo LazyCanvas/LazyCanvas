@@ -9,3 +9,6 @@ lazyc
 /include/syntax.c
 /include/lexic.c
 /include/syntax.h
+
+# Unit API, to install run test/install_unit.sh
+/test/unity
