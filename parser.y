@@ -92,11 +92,12 @@ Attribution:
    ;
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
-     printf("Textual Attribution\n");
+      include_text_on_object_attribute($1, $3, $5);
    }
+   ;
    /* Attribution of object with textual type */
-   | VARIABLE DOT VARIABLE EQUALS Expression {
-     printf("Numerical Attribution\n");
+   | VARIABLE DOT VARIABLE EQUALS NUMBER {
+     include_number_on_object_attribute($1, $3, $5);
    }
    ;
 Action:

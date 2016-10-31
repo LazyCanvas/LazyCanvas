@@ -34,6 +34,7 @@ typedef struct drawable {
   double line_width;
 }Drawable;
 
+//TODO FIX HERE, FOCUS IS SUPPOSED TO HAVE focus_x and focus_y
 typedef struct elipse {
   Drawable * drawable;
   double focus1;
@@ -45,12 +46,10 @@ typedef struct elipse {
  * With Arc we build a circle
  */
 typedef struct arc {
-  Drawable * drawable;
+  Drawable *drawable;
   double radius;
   double start_angle;
   double final_angle;
-  double center_x;
-  double center_y;
 }Arc;
 
 /**
@@ -69,8 +68,13 @@ typedef struct line {
 
 typedef struct rectangle {
   Drawable * drawable;
-  double width;
-  double heigth;
+  double x1;
+  double x2;
+  double x3;
+  double y1;
+  double y2;
+  double y3;
+
 }Rectangle;
 
 #endif

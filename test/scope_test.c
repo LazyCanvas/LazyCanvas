@@ -1,4 +1,4 @@
-#include "unity/unity.h"
+#include <unity.h>
 #include "../include/structure/objects.c"
 #include "../include/figure/drawable.h"
 #include "../include/variable.h"
@@ -106,18 +106,4 @@ void test_clean_stack(void) {
   push_variable_text("xpto", 7, "unit test");
   clean_stack();
   TEST_ASSERT_NULL(object_stack->head);
-}
-
-int main(void) {
-  UNITY_BEGIN();
-  RUN_TEST(test_init_scope_with_success);
-  RUN_TEST(test_scope_active_with_same_variable_name);
-  RUN_TEST(test_scope_active_with_other_variable_name);
-  RUN_TEST(test_pop_scope);
-  RUN_TEST(test_search_element);
-  RUN_TEST(test_search_inexistent_element);
-  RUN_TEST(test_remove_all_from_scope);
-  RUN_TEST(test_remove_all_from_inexistent_scope);
-  RUN_TEST(test_clean_stack);
-  return UNITY_END();
 }

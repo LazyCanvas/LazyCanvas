@@ -2,6 +2,13 @@
 
 int push(char *name, int scope_id, void *structure, StructureType structure_type) {
   int pushed = 0;
+  if(object_stack != NULL){
+    ObjectNode *node = search_element(name);
+    
+    if(node != NULL){
+      remove_node(name);
+    }
+  }
 
   ObjectNode *new_node = create_object_node(name, scope_id, structure,
     structure_type);
@@ -105,4 +112,27 @@ void clean_stack() {
 
     free(node);
   }
+}
+int remove_node(char* name){
+  ObjectNode *node = object_stack->head;
+  ObjectNode *previous = object_stack->head;
+  printf("Aqui1 \n");
+  if(node !=NULL){
+    while(node != NULL){
+      if(strcmp(node->name,name)==0){
+        if(node == object_stack->head){
+          object_stack->head = previous->next;
+        }else{
+          previous->next = node->next;
+        }         
+        free(node->structure);
+        free(node);
+        return 1;
+      }else{
+        previous = node;
+        node = node->next;
+      }
+    }
+  }
+  return 0;
 }
