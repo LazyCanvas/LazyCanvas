@@ -80,18 +80,13 @@ void instance_object(char *variable_name, char *type_name) {
 
   if(pushed) {
     printf(">> #%s<%s>\n", variable_name, type_name);
-  } else {
-    printf(">> Variable '%s' already used\n", variable_name);
-  }
+  } 
 
 }
 
 void include_text_on_object_attribute(char* variable_name, char* attribute, void *text) {
   ObjectNode *node = search_element(variable_name);
-
-  if(node == NULL) {
-    printf(">>  ERROR: Attempt to access non-existing entitie %s", variable_name);
-  } else {
+   
     switch(node->object_type) {
       case CIRCLE:
         attribution_on_circle((Circle*) node->structure, attribute, text, variable_name);
@@ -115,7 +110,7 @@ void include_text_on_object_attribute(char* variable_name, char* attribute, void
         print_no_attribute(variable_name, attribute);
       break;
     }
-  }
+  
 }
 
 void include_number_on_object_attribute(char* variable_name, char* attribute, double number) {
