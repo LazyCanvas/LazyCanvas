@@ -19,7 +19,7 @@
 }
 
 /*=======Automagically Detected Files To Include=====*/
-#include "unity/Unity-2.4.0/src/unity.h"
+#include <unity.h>
 #include <setjmp.h>
 #include <stdio.h>
 #include "../include/figure/drawable.h"
