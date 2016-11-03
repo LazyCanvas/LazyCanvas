@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "../structure/objects.h"
+#include "drawable.h"
 
 // how context object is called in js file
-const char *CONTEXT = "ctx";
+extern const char *CONTEXT;
 
 /**
  * Set Drawable structure of figures
@@ -22,7 +24,7 @@ const char *CONTEXT = "ctx";
  *
  * @see Drawable on /figure/drawable.h
  */
-const char *JS_TEMPLATE = "../../template/canvas.js";
+extern const char *JS_TEMPLATE;
 
 // All methods should use this pointer
 FILE * fp;

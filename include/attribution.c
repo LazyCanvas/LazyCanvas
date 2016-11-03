@@ -14,8 +14,8 @@ void put_new_number(char *variable_name, StructureType type, double value) {
 
    if(pushed) {
       printf(">> #%s(%f)\n", variable_name, value);
-   } 
-   
+   }
+
 }
 
 /**
@@ -32,5 +32,5 @@ void put_new_text(char *variable_name, StructureType type, char* value) {
 
    if(pushed) {
       printf(">> #%s(%s)\n", variable_name, value);
-   } 
+   }
 }

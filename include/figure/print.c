@@ -1,5 +1,18 @@
 #include "print.h"
 
+// how context object is called in js file
+const char *CONTEXT = "ctx";
+
+/**
+ * Set Drawable structure of figures
+ *
+ * @see Drawable on /figure/drawable.h
+ *
+ * @see Drawable on /figure/drawable.h
+ */
+const char *JS_TEMPLATE = "../../template/canvas.js";
+
+
 int draw(ObjectNode *node) {
   // only to append into template file
   fp = fopen (JS_TEMPLATE, "a");
@@ -51,7 +64,7 @@ int draw_drawable(Drawable *drawable) {
   if(read_success > 0) {
     read_success = fill();
   } else {
-    printf("Deu ruim\n", );
+    printf("Deu ruim\n");
   }
 
   int success = false;
@@ -75,11 +88,12 @@ int fill() {
   return fprintf(fp, "%s.fill()\n", CONTEXT);
 }
 
+// TODO decide how rectangle should be draw
 int draw_rectangle(Rectangle *rectangle) {
-  begin_path();
-  fprintf(fp, "%s.rect(0,0,%f,%f);\n", CONTEXT, rectangle->width,
-  rectangle->heigth );
-  draw_drawable(rectangle->drawable);
+  // begin_path();
+  // fprintf(fp, "%s.rect(0,0,%f,%f);\n", CONTEXT, rectangle->width,
+  // rectangle->heigth );
+  // draw_drawable(rectangle->drawable);
 
   return 1;
 }
@@ -89,8 +103,8 @@ int draw_circle(Circle *circle) {
 
   if(read_success > 0 ) {
     read_success = fprintf(fp, "%s.arc(%f, %f, %f, 0, 2 * Math.PI);",
-      circle->drawable->position_x, circle->drawable->position_y,
-      CONTEXT, circle->radius);
+      CONTEXT, circle->drawable->position_x, circle->drawable->position_y,
+      circle->radius);
   }
 
   int success = false;
@@ -141,8 +155,11 @@ int draw_line(Line *line) {
 
 int draw_arc(Arc *arc) {
   begin_path();
+
   fprintf(fp, "%s.arc(%f,%f,%f,%f * Math.PI , %f * Math.PI);\n", CONTEXT,
-    arc->center_x, arc->center_y, arc->radius, arc->start_angle, arc->final_angle);
+    arc->drawable->position_x, arc->drawable->position_y,
+    arc->radius, arc->start_angle, arc->final_angle);
+
   draw_drawable(arc->drawable);
 
   return 1;

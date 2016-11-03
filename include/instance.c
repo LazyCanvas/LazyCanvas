@@ -1,30 +1,4 @@
-#ifndef INSTANCE_H
-
-#define INSTANCE_H
-
-#include "object_types.h"
-#include "structure/objects.h"
-#include "attribute_name.h"
-
-void include_text_on_object_attribute(char* variable_name, char* attribute, void* text);
-
-void include_number_on_object_attribute(char* variable_name, char* attribute, double number);
-
-void attribution_on_circle(Circle *circle, char *attribute, void *text, char *variable_name);
-
-void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *variable_name);
-
-void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name);
-
-void attribution_on_line(Line* line, char *attribute, void *text, char *variable_name);
-
-void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_name);
-
-void print_no_attribute(char *variable_name, char *attribue);
-
-double parse_double(void* text);
-
-Drawable* init_drawable();
+#include "instance.h"
 
 Drawable* init_drawable() {
   return (Drawable*) malloc(sizeof(Drawable));
@@ -80,13 +54,13 @@ void instance_object(char *variable_name, char *type_name) {
 
   if(pushed) {
     printf(">> #%s<%s>\n", variable_name, type_name);
-  } 
+  }
 
 }
 
 void include_text_on_object_attribute(char* variable_name, char* attribute, void *text) {
   ObjectNode *node = search_element(variable_name);
-   
+
     switch(node->object_type) {
       case CIRCLE:
         attribution_on_circle((Circle*) node->structure, attribute, text, variable_name);
@@ -110,7 +84,7 @@ void include_text_on_object_attribute(char* variable_name, char* attribute, void
         print_no_attribute(variable_name, attribute);
       break;
     }
-  
+
 }
 
 void include_number_on_object_attribute(char* variable_name, char* attribute, double number) {
@@ -141,25 +115,25 @@ void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *va
 
 void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name) {
  if(strcmp(attribute, X)==0) {
-    rectangle->drawable->position_x = parse_double(text);    
+    rectangle->drawable->position_x = parse_double(text);
   } else if(strcmp(attribute, X1)==0) {
-    rectangle->x1 = parse_double(text);    
+    rectangle->x1 = parse_double(text);
   } else if(strcmp(attribute, X2)==0) {
-    rectangle->x2 = parse_double(text);    
+    rectangle->x2 = parse_double(text);
   } else if(strcmp(attribute, X3)==0) {
-    rectangle->x3 = parse_double(text);    
+    rectangle->x3 = parse_double(text);
   } else if(strcmp(attribute, Y)==0) {
-    rectangle->drawable->position_y = parse_double(text);    
+    rectangle->drawable->position_y = parse_double(text);
   } else if(strcmp(attribute, Y1)==0) {
-    rectangle->y1 = parse_double(text);    
+    rectangle->y1 = parse_double(text);
   } else if(strcmp(attribute, Y2)==0) {
-    rectangle->y2 = parse_double(text);    
+    rectangle->y2 = parse_double(text);
   } else if(strcmp(attribute, Y3)==0) {
-    rectangle->y3 = parse_double(text);    
+    rectangle->y3 = parse_double(text);
   } else if(strcmp(attribute, BACKGROUND)==0) {
-    rectangle->drawable->background = (char*)(text);    
+    rectangle->drawable->background = (char*)(text);
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
-    rectangle->drawable->line_width = parse_double(text);    
+    rectangle->drawable->line_width = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
@@ -200,5 +174,3 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
 void print_no_attribute(char *variable_name, char *attribute) {
   printf(">> Error variable %s has no attribute %s", variable_name, attribute);
 }
-
-#endif

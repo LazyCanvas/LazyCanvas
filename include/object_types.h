@@ -2,12 +2,12 @@
 
 #define OBJECT_TYPES
 
-const char *CIRCLE_NAME = "Circle";
-const char *ELIPSE_NAME = "Elipse";
-const char *RECTANGLE_NAME = "Rectangle";
-const char *LINE_NAME = "Line";
-const char *ARC_NAME = "Arc";
-const char *NUMBER_NAME = "Number";
-const char *TEXT_NAME = "Text";
+extern const char *CIRCLE_NAME;
+extern const char *ELIPSE_NAME;
+extern const char *RECTANGLE_NAME;
+extern const char *LINE_NAME;
+extern const char *ARC_NAME;
+extern const char *NUMBER_NAME;
+extern const char *TEXT_NAME;
 
 #endif
