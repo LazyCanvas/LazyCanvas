@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+FILE *yyin;
 int yylex();
 %}
 
@@ -118,8 +118,32 @@ int yyerror(char *s) {
    printf(">> ERROR: %s\n",s);
 }
 
-int main(void) {
-   printf(">> Welcome to LazyCanvas Console\n");
-   printf(">> ");
+int main(int argc, char *argv[]) {
+   //First output interpreter
+   //printf(">> Welcome to LazyCanvas Console\n");
+   //printf(">> ");
+   char *lazy_file_name;
+   int i;
+   int strsize = 0;
+   for (i=1; i<argc; i++) {
+     strsize += strlen(argv[i]);
+     if (argc > i+1)
+        strsize++;
+   }
+   lazy_file_name = malloc(strsize);
+   lazy_file_name[0] = '\0';
+   for (i=1; i<argc; i++) {
+     strcat(lazy_file_name, argv[i]);
+     if (argc > i+1)
+        strcat(lazy_file_name, " ");
+   }
+   FILE *entry_file = fopen(lazy_file_name, "r");
+   if(!entry_file) {
+     printf("Error opening %s.\n", lazy_file_name);
+     exit(1);
+   }
+
+   yyin = entry_file;
+
    yyparse();
 }
