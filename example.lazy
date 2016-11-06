@@ -1,0 +1,10 @@
+circle = Circle.new
+circle.x = 100
+circle.y = 100
+circle.radius = 50
+circle.lineWidth = 2
+draw(circle)
+
+circle.background = "#DCDCDC"
+circle.x = 250
+draw(circle)

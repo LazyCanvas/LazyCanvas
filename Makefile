@@ -23,5 +23,4 @@ $(EXECUTABLE): parser.l parser.y
 	$(CC) $(CFLAGS) -o $(EXECUTABLE) *.o -lm
 	rm *.o
 clean:
-	rm include/lexic.* include/syntax.* *.o
 	rm lazyc

@@ -47,11 +47,11 @@ int draw_drawable(Drawable *drawable) {
   int read_success;
 
   if(drawable->background != NULL) {
-    read_success = fprintf(fp, "%s.fillStyle = %s\n", CONTEXT, drawable->background);
+    read_success = fprintf(fp, "%s.fillStyle = %s;\n", CONTEXT, drawable->background);
   }
 
   if(drawable->line_width > 0  && read_success > 0) {
-    read_success = fprintf(fp, "%s.lineWidth = %f\n", CONTEXT, drawable->line_width);
+    read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
   }
 
   if(read_success >= 0) {
@@ -76,7 +76,7 @@ int draw_drawable(Drawable *drawable) {
 }
 
 int begin_path() {
-  return fprintf(fp, "%s.begin_path();\n", CONTEXT);
+  return fprintf(fp, "%s.beginPath();\n", CONTEXT);
 }
 
 int stroke() {
@@ -84,7 +84,7 @@ int stroke() {
 }
 
 int fill() {
-  return fprintf(fp, "%s.fill()\n", CONTEXT);
+  return fprintf(fp, "%s.fill();\n", CONTEXT);
 }
 
 // TODO decide how rectangle should be draw
@@ -101,7 +101,7 @@ int draw_circle(Circle *circle) {
   int read_success = begin_path();
 
   if(read_success > 0 ) {
-    read_success = fprintf(fp, "%s.arc(%f, %f, %f, 0, 2 * Math.PI);",
+    read_success = fprintf(fp, "%s.arc(%f, %f, %f, 0, 2 * Math.PI);\n",
       CONTEXT, circle->drawable->position_x, circle->drawable->position_y,
       circle->radius);
   }
@@ -132,7 +132,7 @@ int draw_line(Line *line) {
   int read_success = begin_path();
 
   if(read_success > 0) {
-    read_success = fprintf(fp, "%s.moveTo(%f,%f)\n", CONTEXT,
+    read_success = fprintf(fp, "%s.moveTo(%f,%f);\n", CONTEXT,
       line->drawable->position_x, line->drawable->position_y);
     if(read_success > 0) {
       read_success = fprintf(fp, "%s.lineTo(%f,%f);\n", CONTEXT,

@@ -48,7 +48,7 @@ int yylex();
 
 Input:
    /* Empty */
-   | Input Line { printf(">> "); }
+   | Input Line {}
    ;
 Line:
    BREAK_LINE
@@ -103,8 +103,6 @@ Attribution:
    ;
 Action:
   DRAW_KEYWORD LEFT_PARENTHESIS VARIABLE RIGHT_PARENTHESIS {
-    printf("Draw %s was called\n", $3);
-
     ObjectNode *finded = search_element($3);
     if(finded == NULL) {
       printf("Variable %s not found\n", $3);
@@ -122,28 +120,22 @@ int main(int argc, char *argv[]) {
    //First output interpreter
    //printf(">> Welcome to LazyCanvas Console\n");
    //printf(">> ");
-   char *lazy_file_name;
-   int i;
-   int strsize = 0;
-   for (i=1; i<argc; i++) {
-     strsize += strlen(argv[i]);
-     if (argc > i+1)
-        strsize++;
+
+   if(strcmp(argv[2], "-c") == 0) {
+     clean_canvas();
    }
-   lazy_file_name = malloc(strsize);
-   lazy_file_name[0] = '\0';
-   for (i=1; i<argc; i++) {
-     strcat(lazy_file_name, argv[i]);
-     if (argc > i+1)
-        strcat(lazy_file_name, " ");
-   }
-   FILE *entry_file = fopen(lazy_file_name, "r");
+
+   // source file is argument 1
+   FILE *entry_file = fopen(argv[1], "r");
+
    if(!entry_file) {
-     printf("Error opening %s.\n", lazy_file_name);
+     printf("Error opening %s.\n", argv[1]);
      exit(1);
    }
 
    yyin = entry_file;
 
    yyparse();
+
+   return 0;
 }
