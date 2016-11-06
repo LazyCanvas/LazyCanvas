@@ -10,7 +10,7 @@ const char *CONTEXT = "ctx";
  *
  * @see Drawable on /figure/drawable.h
  */
-const char *JS_TEMPLATE = "../../template/canvas.js";
+const char *JS_TEMPLATE = "template/canvas.js";
 
 
 int draw(ObjectNode *node) {
@@ -54,17 +54,16 @@ int draw_drawable(Drawable *drawable) {
     read_success = fprintf(fp, "%s.lineWidth = %f\n", CONTEXT, drawable->line_width);
   }
 
-  if(read_success > 0) {
+  if(read_success >= 0) {
     read_success = stroke();
   } else {
     // TODO print error
-    printf("Deu ruim\n");
   }
 
-  if(read_success > 0) {
+  if(read_success >= 0) {
     read_success = fill();
   } else {
-    printf("Deu ruim\n");
+      // TODO print error
   }
 
   int success = false;
