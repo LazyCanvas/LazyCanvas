@@ -35,9 +35,12 @@ typedef struct stack {
   ObjectNode *head;
 } ObjectStack;
 
-ObjectStack *object_stack = NULL;
+/**
+ *
+ */
+extern ObjectStack *object_stack;
 
-long long current_scope_id = 0;
+extern long long current_scope_id;
 
 /*
  * Insert a new object into stack

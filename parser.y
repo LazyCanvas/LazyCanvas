@@ -1,8 +1,9 @@
 %{
-#include "structure/objects.c"
+#include "structure/objects.h"
 #include "figure/drawable.h"
-#include "instance.c"
-#include "attribution.c"
+#include "instance.h"
+#include "attribution.h"
+#include "figure/print.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -103,6 +104,13 @@ Attribution:
 Action:
   DRAW_KEYWORD LEFT_PARENTHESIS VARIABLE RIGHT_PARENTHESIS {
     printf("Draw %s was called\n", $3);
+
+    ObjectNode *finded = search_element($3);
+    if(finded == NULL) {
+      printf("Variable %s not found\n", $3);
+    } else {
+      draw(finded);
+    }
   }
 %%
 

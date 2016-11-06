@@ -3,6 +3,8 @@
 
 #include "object_types.h"
 #include "variable.h"
+#include "structure/objects.h"
+#include "figure/drawable.h"
 
 /**
  * Create a new numerical variable

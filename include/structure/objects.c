@@ -1,10 +1,17 @@
 #include "objects.h"
 
+/**
+ *
+ */
+ObjectStack *object_stack = NULL;
+
+long long current_scope_id = 0;
+
 int push(char *name, int scope_id, void *structure, StructureType structure_type) {
   int pushed = 0;
   if(object_stack != NULL){
     ObjectNode *node = search_element(name);
-    
+
     if(node != NULL){
       remove_node(name);
     }
@@ -116,7 +123,7 @@ void clean_stack() {
 int remove_node(char* name){
   ObjectNode *node = object_stack->head;
   ObjectNode *previous = object_stack->head;
-  printf("Aqui1 \n");
+
   if(node !=NULL){
     while(node != NULL){
       if(strcmp(node->name,name)==0){
@@ -124,7 +131,7 @@ int remove_node(char* name){
           object_stack->head = previous->next;
         }else{
           previous->next = node->next;
-        }         
+        }
         free(node->structure);
         free(node);
         return 1;
@@ -134,5 +141,6 @@ int remove_node(char* name){
       }
     }
   }
+
   return 0;
 }

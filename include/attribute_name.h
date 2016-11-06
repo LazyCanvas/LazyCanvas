@@ -1,24 +1,23 @@
 #ifndef ATTRIBUTE_NAMES
 
 #define ATTRIBUTE_NAMES
-
-  const char* BACKGROUND = "background";
-  const char* LINE_WIDTH = "lineWidth";
-  const char* X = "x";
-  const char* Y = "y";
-  const char* X1 = "x1";
-  const char* Y1 = "y1";
-  const char* X2 = "x2";
-  const char* Y2 = "y2";
-  const char* X3 = "x3";
-  const char* Y3 = "y3";
-  const char* RADIUS = "radius";
-  const char* START_ANGLE = "startAngle";
-  const char* FINAL_ANGLE = "finalAngle";
-  const char* FINAL_X = "finalX";
-  const char* FINAL_Y = "finalY";
-  const char* WIDTH = "width";
-  const char* HEIGTH = "heigth";
-  const char* CENTER_X = "centerX";
-  const char* CENTER_Y = "centerY";
+  extern const char* BACKGROUND;
+  extern const char* LINE_WIDTH;
+  extern const char* X;
+  extern const char* Y;
+  extern const char* X1;
+  extern const char* Y1;
+  extern const char* X2;
+  extern const char* Y2;
+  extern const char* X3;
+  extern const char* Y3;
+  extern const char* RADIUS;
+  extern const char* START_ANGLE;
+  extern const char* FINAL_ANGLE;
+  extern const char* FINAL_X;
+  extern const char* FINAL_Y;
+  extern const char* WIDTH;
+  extern const char* HEIGTH;
+  extern const char* CENTER_X;
+  extern const char* CENTER_Y;
 #endif
