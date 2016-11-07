@@ -120,7 +120,8 @@ void clean_stack() {
     free(node);
   }
 }
-int remove_node(char* name){
+
+int remove_node(char* name) {
   ObjectNode *node = object_stack->head;
   ObjectNode *previous = object_stack->head;
 

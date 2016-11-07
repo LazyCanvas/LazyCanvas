@@ -84,4 +84,9 @@ ObjectNode* search_element_with_same_name(ObjectNode*, char*);
  */
 void clean_stack(void);
 
+/*
+ * Remove node from object stack
+ */
+int remove_node(char* name);
+
 #endif
