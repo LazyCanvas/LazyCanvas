@@ -9,7 +9,7 @@ CFLAGS = -g -Wall -std=c99 -Werror -Isrc -I$(UNIT_SOURCE)/src -o
 CXX=gcc
 
 # Deps
-DEPS=$(UNIT_SOURCE)/src/unity.c
+DEPS=$(UNIT_SOURCE)/src/unity.c ../include/structure/objects.c
 
 # Name of the executable file
 EXECUTABLE=test

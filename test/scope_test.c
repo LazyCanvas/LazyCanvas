@@ -1,5 +1,5 @@
 #include <unity.h>
-#include "../include/structure/objects.c"
+#include "../include/structure/objects.h"
 #include "../include/figure/drawable.h"
 #include "../include/variable.h"
 
