@@ -89,12 +89,14 @@ int fill() {
 
 // TODO decide how rectangle should be draw
 int draw_rectangle(Rectangle *rectangle) {
-  // begin_path();
-  // fprintf(fp, "%s.rect(0,0,%f,%f);\n", CONTEXT, rectangle->width,
-  // rectangle->heigth );
-  // draw_drawable(rectangle->drawable);
-
-  return 1;
+   begin_path();
+   fprintf(fp, "%s.rect(%f,%f,%f,%f);\n", CONTEXT,
+   rectangle->drawable->position_x, rectangle->drawable->position_y,
+   rectangle->width,  rectangle->heigth );
+   //draw_drawable(rectangle->drawable);
+   fprintf(fp, "%s.stroke();\n", CONTEXT);
+   fprintf(fp, "%s.fill();\n", CONTEXT);
+   return 1;
 }
 
 int draw_circle(Circle *circle) {

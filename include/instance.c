@@ -116,22 +116,14 @@ void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *va
 void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name) {
  if(strcmp(attribute, X)==0) {
     rectangle->drawable->position_x = parse_double(text);
-  } else if(strcmp(attribute, X1)==0) {
-    rectangle->x1 = parse_double(text);
-  } else if(strcmp(attribute, X2)==0) {
-    rectangle->x2 = parse_double(text);
-  } else if(strcmp(attribute, X3)==0) {
-    rectangle->x3 = parse_double(text);
   } else if(strcmp(attribute, Y)==0) {
     rectangle->drawable->position_y = parse_double(text);
-  } else if(strcmp(attribute, Y1)==0) {
-    rectangle->y1 = parse_double(text);
-  } else if(strcmp(attribute, Y2)==0) {
-    rectangle->y2 = parse_double(text);
-  } else if(strcmp(attribute, Y3)==0) {
-    rectangle->y3 = parse_double(text);
+  } else if(strcmp(attribute, WIDTH)==0) {
+    rectangle->width = parse_double(text);
+  } else if(strcmp(attribute, HEIGTH)==0) {
+    rectangle->heigth = parse_double(text);
   } else if(strcmp(attribute, BACKGROUND)==0) {
-    rectangle->drawable->background = (char*)(text);
+    rectangle->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
     rectangle->drawable->line_width = parse_double(text);
   } else {

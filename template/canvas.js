@@ -15,3 +15,7 @@ ctx.moveTo(500.000000,500.000000);
 ctx.lineTo(550.000000,400.000000);
 ctx.stroke();
 ctx.fill();
+ctx.beginPath();
+ctx.rect(400.000000,400.000000,200.000000,300.000000);
+ctx.stroke();
+ctx.fill();

@@ -68,13 +68,9 @@ typedef struct line {
 
 typedef struct rectangle {
   Drawable * drawable;
-  double x1;
-  double x2;
-  double x3;
-  double y1;
-  double y2;
-  double y3;
-
+  double coordinates;
+  double heigth;
+  double width;
 }Rectangle;
 
 #endif

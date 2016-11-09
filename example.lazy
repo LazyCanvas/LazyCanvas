@@ -15,3 +15,10 @@ line.y = 500
 line.x1 = 550
 line.y1 = 400
 draw(line)
+
+rectangle = Rectangle.new
+rectangle.x = 400
+rectangle.y = 400
+rectangle.width = 200
+rectangle.heigth = 300
+draw(rectangle)
