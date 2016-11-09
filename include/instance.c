@@ -39,7 +39,7 @@ void instance_object(char *variable_name, char *type_name) {
   if(strcmp(type_name, LINE_NAME) == 0) {
     Line* line = (Line*) malloc(sizeof(Line));
     line->drawable = init_drawable();
-    structure = init_drawable();
+    structure = line;
     object_type = LINE;
   }
 
@@ -140,13 +140,13 @@ void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, 
   }
 
 void attribution_on_line(Line* line, char *attribute, void *text, char *variable_name) {
-  if(strcmp(attribute, X1)==0) {
+  if(strcmp(attribute, X)==0) {
     line->drawable->position_x = parse_double(text);
-  } else if(strcmp(attribute, X2)==0) {
+  } else if(strcmp(attribute, X1)==0) {
     line->second_position_x = parse_double(text);
-  } else if(strcmp(attribute, Y1)==0) {
+  } else if(strcmp(attribute, Y)==0) {
     line->drawable->position_y = parse_double(text);
-  } else if(strcmp(attribute, Y2)==0) {
+  } else if(strcmp(attribute, Y1)==0) {
     line->second_position_y = parse_double(text);
   } else if(strcmp(attribute, BACKGROUND)==0) {
     line->drawable->background = text;

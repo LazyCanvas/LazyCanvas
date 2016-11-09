@@ -1,0 +1,5 @@
+elipse = Elipse.new
+elipse.x = 200
+elipse.y = 200
+elipse.focus_x = 50
+elipse.focus_y = 75

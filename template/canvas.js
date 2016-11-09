@@ -1,2 +1,17 @@
 var myCanvas = document.getElementById("lazy_canvas");
 var ctx = myCanvas.getContext("2d");
+ctx.beginPath();
+ctx.arc(100.000000, 100.000000, 50.000000, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fill();
+ctx.beginPath();
+ctx.arc(250.000000, 100.000000, 50.000000, 0, 2 * Math.PI);
+ctx.fillStyle = "#DCDCDC";
+ctx.lineWidth = 2.000000;
+ctx.stroke();
+ctx.fill();
+ctx.beginPath();
+ctx.moveTo(500.000000,500.000000);
+ctx.lineTo(550.000000,400.000000);
+ctx.stroke();
+ctx.fill();
