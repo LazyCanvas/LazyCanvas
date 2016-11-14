@@ -93,9 +93,9 @@ int draw_rectangle(Rectangle *rectangle) {
    fprintf(fp, "%s.rect(%f,%f,%f,%f);\n", CONTEXT,
    rectangle->drawable->position_x, rectangle->drawable->position_y,
    rectangle->width,  rectangle->heigth );
-   //draw_drawable(rectangle->drawable);
-   fprintf(fp, "%s.stroke();\n", CONTEXT);
-   fprintf(fp, "%s.fill();\n", CONTEXT);
+   draw_drawable(rectangle->drawable);
+   //fprintf(fp, "%s.stroke();\n", CONTEXT);
+   //fprintf(fp, "%s.fill();\n", CONTEXT);
    return 1;
 }
 
@@ -161,10 +161,10 @@ int draw_arc(Arc *arc) {
     arc->drawable->position_x, arc->drawable->position_y,
     arc->radius, arc->start_angle, arc->final_angle);
 
-  //draw_drawable(arc->drawable);
+  draw_drawable(arc->drawable);
 
-  fprintf(fp, "%s.stroke();\n", CONTEXT);
-  fprintf(fp, "%s.fill();\n", CONTEXT);
+  //fprintf(fp, "%s.stroke();\n", CONTEXT);
+  //fprintf(fp, "%s.fill();\n", CONTEXT);
 
   return 1;
 }

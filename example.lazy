@@ -21,6 +21,8 @@ rectangle.x = 400
 rectangle.y = 400
 rectangle.width = 200
 rectangle.heigth = 300
+rectangle.background = "black"
+rectangle.lineWidth = 5
 draw(rectangle)
 
 arc = Arc.new
@@ -29,4 +31,6 @@ arc.y = 200
 arc.radius = 50
 arc.startAngle = 0
 arc.finalAngle = 180
+arc.background = "red"
+arc.lineWidth = 3
 draw(arc)

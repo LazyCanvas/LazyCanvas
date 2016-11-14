@@ -154,6 +154,10 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
     arc->drawable->position_x = parse_double(text);
   } else if(strcmp(attribute, Y)==0) {
     arc->drawable->position_y = parse_double(text);
+  } else if(strcmp(attribute, BACKGROUND)==0) {
+    arc->drawable->background = text;
+  } else if(strcmp(attribute, LINE_WIDTH) == 0){
+    arc->drawable->line_width = parse_double(text);
   } else if(strcmp(attribute, RADIUS)==0) {
     arc->radius = parse_double(text);
   } else if(strcmp(attribute, START_ANGLE)==0) {
