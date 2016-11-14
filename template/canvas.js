@@ -19,3 +19,7 @@ ctx.beginPath();
 ctx.rect(400.000000,400.000000,200.000000,300.000000);
 ctx.stroke();
 ctx.fill();
+ctx.beginPath();
+ctx.arc(200.000000,200.000000,50.000000,(0.000000 / 180) * Math.PI , (180.000000 / 180) * Math.PI);
+ctx.stroke();
+ctx.fill();

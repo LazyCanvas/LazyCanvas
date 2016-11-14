@@ -157,11 +157,14 @@ int draw_line(Line *line) {
 int draw_arc(Arc *arc) {
   begin_path();
 
-  fprintf(fp, "%s.arc(%f,%f,%f,%f * Math.PI , %f * Math.PI);\n", CONTEXT,
+  fprintf(fp, "%s.arc(%f,%f,%f,(%f / 180) * Math.PI , (%f / 180) * Math.PI);\n", CONTEXT,
     arc->drawable->position_x, arc->drawable->position_y,
     arc->radius, arc->start_angle, arc->final_angle);
 
-  draw_drawable(arc->drawable);
+  //draw_drawable(arc->drawable);
+
+  fprintf(fp, "%s.stroke();\n", CONTEXT);
+  fprintf(fp, "%s.fill();\n", CONTEXT);
 
   return 1;
 }

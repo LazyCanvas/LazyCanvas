@@ -129,7 +129,7 @@ void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, 
   } else {
     print_no_attribute(variable_name, attribute);
   }
-  }
+}
 
 void attribution_on_line(Line* line, char *attribute, void *text, char *variable_name) {
   if(strcmp(attribute, X)==0) {
@@ -150,10 +150,12 @@ void attribution_on_line(Line* line, char *attribute, void *text, char *variable
 }
 
 void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_name) {
-  if(strcmp(attribute, CENTER_X)==0) {
+  if(strcmp(attribute, X)==0) {
     arc->drawable->position_x = parse_double(text);
-  } else if(strcmp(attribute, CENTER_Y)==0) {
+  } else if(strcmp(attribute, Y)==0) {
     arc->drawable->position_y = parse_double(text);
+  } else if(strcmp(attribute, RADIUS)==0) {
+    arc->radius = parse_double(text);
   } else if(strcmp(attribute, START_ANGLE)==0) {
     arc->start_angle = parse_double(text);
   } else if(strcmp(attribute, FINAL_ANGLE)==0) {

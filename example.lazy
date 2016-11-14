@@ -22,3 +22,11 @@ rectangle.y = 400
 rectangle.width = 200
 rectangle.heigth = 300
 draw(rectangle)
+
+arc = Arc.new
+arc.x = 200
+arc.y = 200
+arc.radius = 50
+arc.startAngle = 0
+arc.finalAngle = 180
+draw(arc)
