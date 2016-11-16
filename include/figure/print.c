@@ -54,6 +54,10 @@ int draw_drawable(Drawable *drawable) {
     read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
   }
 
+  if(drawable->rotate > 0  && read_success > 0) {
+    read_success = fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, drawable->rotate);
+  }
+
   if(read_success >= 0) {
     read_success = stroke();
   } else {
@@ -94,6 +98,7 @@ int draw_rectangle(Rectangle *rectangle) {
    rectangle->drawable->position_x, rectangle->drawable->position_y,
    rectangle->width,  rectangle->heigth );
    draw_drawable(rectangle->drawable);
+   //fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, rectangle->drawable->rotate);
    //fprintf(fp, "%s.stroke();\n", CONTEXT);
    //fprintf(fp, "%s.fill();\n", CONTEXT);
    return 1;

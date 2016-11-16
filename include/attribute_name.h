@@ -20,4 +20,5 @@
   extern const char* HEIGTH;
   extern const char* CENTER_X;
   extern const char* CENTER_Y;
+  extern const char* ROTATE;
 #endif

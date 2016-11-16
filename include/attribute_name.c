@@ -19,3 +19,4 @@ const char* WIDTH = "width";
 const char* HEIGTH = "heigth";
 const char* CENTER_X = "centerX";
 const char* CENTER_Y = "centerY";
+const char* ROTATE = "rotate";
