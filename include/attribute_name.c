@@ -22,3 +22,4 @@ const char* CENTER_Y = "centerY";
 const char* FOCUS1 = "focus1";
 const char* FOCUS2 = "focus2";
 const char* DISTANCE = "distance";
+const char* ROTATE = "rotate";

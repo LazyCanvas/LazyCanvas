@@ -142,6 +142,8 @@ void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, 
     rectangle->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
     rectangle->drawable->line_width = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    rectangle->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
