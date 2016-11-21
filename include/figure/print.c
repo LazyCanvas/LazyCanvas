@@ -54,6 +54,10 @@ int draw_drawable(Drawable *drawable) {
     read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
   }
 
+  if(drawable->line_width > 0  && read_success > 0) {
+    read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
+  }
+
   if(read_success >= 0) {
     read_success = stroke();
   } else {
