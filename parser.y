@@ -32,13 +32,12 @@ int yylex();
 %token VARIABLE
 %token TYPES
 %token NUMBER TEXT
-%token PARAMETER
 
 /* Associates type with token, support only two types */
 
 %type<numeral> Expression NUMBER
+%type<string> Parameter
 %type<string> TEXT
-%type<string> PARAMETER 
 %type<string> VARIABLE
 %type<string> TYPES
 
@@ -61,6 +60,7 @@ Line:
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
+   | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
@@ -71,7 +71,6 @@ Line:
         printf(">> Variable not exists\n");
       }
    }
-   | PARAMETER BREAK_LINE { printf("%s\n",$1);}
    ;
 Expression:
    NUMBER { $$=$1; }
@@ -117,6 +116,14 @@ Action:
     }
   }
   ;
+Parameter:
+  VARIABLE { $$=$1; }
+  | Parameter COMMA_KEYWORD VARIABLE {
+    strcat($$, $1);
+    strcat($$, $3);
+  }
+  ;
+
 //Loop:
 //  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS RIGHT_PARENTHESIS{
 
@@ -135,7 +142,7 @@ int main(int argc, char *argv[]) {
 
     clean_canvas();
   if(strcmp(argv[1],"-c")!=0){
-    printf("%s\n",argv[1]);  
+    printf("%s\n",argv[1]);
      // source file is argument 1
      FILE *entry_file = fopen(argv[1], "r");
 
@@ -143,14 +150,14 @@ int main(int argc, char *argv[]) {
        printf("Error opening %s.\n", argv[1]);
        exit(1);
      }
-    
+
      yyin = entry_file;
   }else{
    // First output interpreter
       printf(">> Welcome to LazyCanvas Console\n");
       printf(">> ");
     }
-   
+
   yyparse();
 
    return 0;

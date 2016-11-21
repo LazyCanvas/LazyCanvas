@@ -18,7 +18,6 @@ types (Elipse|Arc|Circle|Line|Rectangle)
 
 /* All variable name should follow this pattern*/
 variable ([a-zA-Z_][a-zA-Z0-9_]*)
-parameter ({variable}[,{variable}]*)
 
 %% /* Roles */
 
@@ -53,13 +52,6 @@ parameter ({variable}[,{variable}]*)
   yylval.string = strdup(yytext);
   return(VARIABLE);
 }
-
-{parameter} {
-  printf("\nparametro\n");
-  yylval.string = strdup(yytext);
-  return(PARAMETER);
-}
-
 
 "+" return(PLUS);
 "-" return(MINUS);
