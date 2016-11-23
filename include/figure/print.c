@@ -96,9 +96,14 @@ int fill() {
 int draw_rectangle(Rectangle *rectangle) {
    begin_path();
    print_rotate(rectangle->drawable);
-   fprintf(fp, "%s.rect(%f,%f,%f,%f);\n", CONTEXT,
-   rectangle->drawable->position_x, rectangle->drawable->position_y,
-   rectangle->width,  rectangle->heigth );
+   if(!rectangle->drawable->rotate)
+     fprintf(fp, "%s.rect(%f,%f,%f,%f);\n", CONTEXT,
+     rectangle->drawable->position_x, rectangle->drawable->position_y,
+     rectangle->width,  rectangle->heigth );
+   else
+     fprintf(fp, "%s.rect(%f / -2,%f / -2,%f,%f);\n", CONTEXT,
+     rectangle->drawable->position_x, rectangle->drawable->position_y,
+     rectangle->width,  rectangle->heigth );
    draw_drawable(rectangle->drawable);
    //fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, rectangle->drawable->rotate);
    //fprintf(fp, "%s.stroke();\n", CONTEXT);
@@ -201,11 +206,13 @@ int clean_canvas() {
 
 void print_rotate(Drawable *drawable){
   if(drawable->rotate && drawable->rotate > 0) {
+    fprintf(fp, "%s.translate(lazy_canvas.width / 2, lazy_canvas.height / 2);\n",CONTEXT);
     fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, drawable->rotate);
   }
 }
 void print_unrotate(Drawable *drawable){
   if(drawable->rotate && drawable->rotate > 0) {
     fprintf(fp, "%s.rotate((-1)*%f*Math.PI/180);\n", CONTEXT, drawable->rotate);
+    fprintf(fp, "%s.translate(-lazy_canvas.width / 2, -lazy_canvas.height / 2);\n",CONTEXT);
   }
 }
