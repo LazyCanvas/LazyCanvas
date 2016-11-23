@@ -37,9 +37,8 @@ typedef struct drawable {
 //TODO FIX HERE, FOCUS IS SUPPOSED TO HAVE focus_x and focus_y
 typedef struct elipse {
   Drawable * drawable;
-  double focus1;
-  double focus2;
-  double distance;
+  double heigth;
+  double width;
 }Elipse;
 
 /**

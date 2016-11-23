@@ -123,9 +123,24 @@ int draw_circle(Circle *circle) {
 // This command in canvas not exist
 int draw_elipse(Elipse *elipse) {
   begin_path();
-  fprintf(fp, "%s.ellipse(0,0,%f,%f,0,0,2 * Math.PI,false);\n", CONTEXT,
-  elipse->focus1, elipse->focus2);
-  draw_drawable(elipse->drawable);
+
+  float hB = (elipse->width / 2) * .5522848,
+      vB = (elipse->heigth / 2) * .5522848,
+      eX = elipse->drawable->position_x + elipse->width,
+      eY = elipse->drawable->position_y + elipse->heigth,
+      mX = elipse->drawable->position_x + elipse->width/ 2,
+      mY = elipse->drawable->position_y + elipse->heigth / 2;
+
+      fprintf(fp, "%s.bezierCurveTo(%f, %f - %f, %f - %f, %f, %f, %f);\n", CONTEXT,
+      elipse->drawable->position_x, mY, vB, mX, hB, elipse->drawable->position_y, mX, elipse->drawable->position_y);
+      fprintf(fp, "%s.bezierCurveTo(%f + %f, %f, %f, %f - %f, %f, %f);\n", CONTEXT,
+      mX, hB, elipse->drawable->position_y, eX, mY, vB, eX, mY);
+      fprintf(fp, "%s.bezierCurveTo(%f, %f + %f, %f + %f, %f, %f, %f);\n", CONTEXT,
+      eX, mY, vB, mX, hB, eY, mX, eY);
+      fprintf(fp, "%s.bezierCurveTo(%f - %f, %f, %f, %f + %f, %f, %f);\n", CONTEXT,
+      mX, hB, eY, elipse->drawable->position_x, mY, vB, elipse->drawable->position_x, mY);
+
+      draw_drawable(elipse->drawable);
 
   return 1;
 }

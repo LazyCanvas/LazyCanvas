@@ -34,3 +34,10 @@ arc.finalAngle = 180
 arc.background = "red"
 arc.lineWidth = 3
 draw(arc)
+
+elipse = Elipse.new
+elipse.x = 350
+elipse.y = 350
+elipse.heigth = 50
+elipse.width = 75
+draw(elipse)
