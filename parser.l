@@ -23,6 +23,12 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 
 "new" return(NEW_KEYWORD);
 "draw" return(DRAW_KEYWORD);
+"for" return(FOR_KEYWORD);
+"in" return(IN_KEYWORD);
+"range" return(RANGE_KEYWORD);
+"," return(COMMA_KEYWORD);
+"end" return(END_BLOCK);
+"if" return(IF_KEYWORD);
 
 {blank} {/* Ignore white characters */ }
 

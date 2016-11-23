@@ -22,9 +22,11 @@ int yylex();
 %token PLUS MINUS TIMES DIVIDE POWER
 %token LEFT_PARENTHESIS RIGHT_PARENTHESIS
 %token BREAK_LINE
+%token COMMA_KEYWORD
+
 
 /* Some keywords */
-%token END_BLOCK NEW_KEYWORD DEF_KEYWORD DRAW_KEYWORD
+%token END_BLOCK NEW_KEYWORD DEF_KEYWORD DRAW_KEYWORD FOR_KEYWORD IF_KEYWORD IN_KEYWORD RANGE_KEYWORD
 
 /* Data */
 %token VARIABLE
@@ -56,6 +58,8 @@ Line:
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
+   | Loop BREAK_LINE
+   | Conditional BREAK_LINE
    /* Search a variable */
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
@@ -110,6 +114,31 @@ Action:
       draw(finded);
     }
   }
+  | END_BLOCK {}
+  ;
+
+Statement:
+  Attribution
+  | Instance
+  | Action
+  ;
+Loop:
+  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Expression COMMA_KEYWORD Expression COMMA_KEYWORD Expression RIGHT_PARENTHESIS {
+    create_scope();
+    printf("%d\n",current_scope_id );
+
+  }
+  | END_BLOCK BREAK_LINE {
+    delete_scope();
+    printf("%d\n",current_scope_id );
+  }
+  ;
+Conditional:
+  IF_KEYWORD LEFT_PARENTHESIS VARIABLE RIGHT_PARENTHESIS{
+    printf("IF\n" );
+  }
+  | END_BLOCK BREAK_LINE{printf("end if\n" );}
+  ;
 %%
 
 int yyerror(char *s) {

@@ -48,6 +48,8 @@ extern long long current_scope_id;
 int push(char* name, int scope_id, void* structure,
   StructureType structure_type);
 
+void create_scope();
+
 /*
  * Create node! Used by push function
  */

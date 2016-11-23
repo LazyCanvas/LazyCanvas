@@ -83,6 +83,17 @@ int remove_all_from_scope(int scope_id) {
 
   return remove_success;
 }
+void delete_scope() {
+  
+  while (object_stack->head != NULL && object_stack->head->scope_id == current_scope_id) {
+      pop();
+  }
+  current_scope_id --;
+
+}
+void create_scope() {
+    current_scope_id++;
+}
 
 int print_object_stack(ObjectNode *node) {
   if(node == NULL) {
