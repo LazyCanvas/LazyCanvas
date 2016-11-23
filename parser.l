@@ -27,6 +27,8 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 "in" return(IN_KEYWORD);
 "range" return(RANGE_KEYWORD);
 "," return(COMMA_KEYWORD);
+"end" return(END_BLOCK);
+"if" return(IF_KEYWORD);
 {blank} {/* Ignore white characters */ }
 
 

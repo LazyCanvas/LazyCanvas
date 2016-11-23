@@ -26,7 +26,7 @@ int yylex();
 
 /* Some keywords */
 %token END_BLOCK NEW_KEYWORD DEF_KEYWORD DRAW_KEYWORD
-%token FOR_KEYWORD IN_KEYWORD RANGE_KEYWORD
+%token FOR_KEYWORD IF_KEYWORD IN_KEYWORD RANGE_KEYWORD
 
 /* Data */
 %token VARIABLE
@@ -61,6 +61,7 @@ Line:
    | Attribution BREAK_LINE
    | Action BREAK_LINE
    | Loop BREAK_LINE
+   | Conditional BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
@@ -116,7 +117,7 @@ Action:
       draw(finded);
     }
   }
-  | END_BLOCK {printf(" end ");}
+  | END_BLOCK {}
   ;
 Parameter:
   VARIABLE { $$=$1; }
@@ -132,13 +133,21 @@ Statement:
   | Action
   ;
 Loop:
-  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Parameter RIGHT_PARENTHESIS {
-      int x;
-      for(x = 1; x < 2; x+=1);
+  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Expression COMMA_KEYWORD Expression COMMA_KEYWORD Expression RIGHT_PARENTHESIS {
+    create_scope();
+    printf("%d\n",current_scope_id );
+
   }
-  | Statement END_BLOCK {
-    printf("Statement");
+  | END_BLOCK BREAK_LINE {
+    delete_scope();
+    printf("%d\n",current_scope_id );
   }
+  ;
+Conditional:
+  IF_KEYWORD LEFT_PARENTHESIS VARIABLE RIGHT_PARENTHESIS{
+    printf("IF\n" );
+  }
+  | END_BLOCK BREAK_LINE{printf("end if\n" );}
   ;
 %%
 
