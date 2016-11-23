@@ -60,6 +60,7 @@ Line:
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
+   | Loop BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
@@ -115,20 +116,30 @@ Action:
       draw(finded);
     }
   }
+  | END_BLOCK {printf(" end ");}
   ;
 Parameter:
   VARIABLE { $$=$1; }
   | Parameter COMMA_KEYWORD VARIABLE {
     strcat($$, $1);
+    strcat($$, ",");
     strcat($$, $3);
   }
   ;
-
-//Loop:
-//  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS RIGHT_PARENTHESIS{
-
-
-//  }
+Statement:
+  Attribution
+  | Instance
+  | Action
+  ;
+Loop:
+  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Parameter RIGHT_PARENTHESIS {
+      int x;
+      for(x = 1; x < 2; x+=1);
+  }
+  | Statement END_BLOCK {
+    printf("Statement");
+  }
+  ;
 %%
 
 int yyerror(char *s) {
@@ -136,29 +147,26 @@ int yyerror(char *s) {
 }
 
 int main(int argc, char *argv[]) {
-   //First output interpreter
-   //printf(">> Welcome to LazyCanvas Console\n");
-   //printf(">> ");
+  clean_canvas();
 
-    clean_canvas();
-  if(strcmp(argv[1],"-c")!=0){
+  if(strcmp(argv[1],"-c")!=0) {
     printf("%s\n",argv[1]);
-     // source file is argument 1
-     FILE *entry_file = fopen(argv[1], "r");
+    // source file is argument 1
+    FILE *entry_file = fopen(argv[1], "r");
 
-     if(!entry_file) {
-       printf("Error opening %s.\n", argv[1]);
-       exit(1);
-     }
-
-     yyin = entry_file;
-  }else{
-   // First output interpreter
-      printf(">> Welcome to LazyCanvas Console\n");
-      printf(">> ");
+    if(!entry_file) {
+      printf("Error opening %s.\n", argv[1]);
+      exit(1);
     }
+
+    yyin = entry_file;
+  } else {
+   // First output interpreter
+   printf(">> Welcome to LazyCanvas Console\n");
+   printf(">> ");
+  }
 
   yyparse();
 
-   return 0;
+  return 0;
 }
