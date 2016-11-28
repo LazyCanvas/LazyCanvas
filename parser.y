@@ -62,6 +62,9 @@ Line:
    | Action BREAK_LINE
    | Loop BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
+   | END_BLOCK {
+     execute_block();
+   }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
@@ -85,6 +88,9 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
+     if(loop_is_active()) {
+       push_instruction();
+     }
      instance_object($1, $3);
    }
    ;
@@ -116,7 +122,6 @@ Action:
       draw(finded);
     }
   }
-  | END_BLOCK {printf(" end ");}
   ;
 Parameter:
   VARIABLE { $$=$1; }
@@ -126,18 +131,11 @@ Parameter:
     strcat($$, $3);
   }
   ;
-Statement:
-  Attribution
-  | Instance
-  | Action
-  ;
 Loop:
-  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Parameter RIGHT_PARENTHESIS {
-      int x;
-      for(x = 1; x < 2; x+=1);
-  }
-  | Statement END_BLOCK {
-    printf("Statement");
+  FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Expression COMMA_KEYWORD Expression RIGHT_PARENTHESIS {
+    put_new_number($2, VAR_NUMBER, $6);
+    current_scope_id++;
+    init_for($2, $6, $8);
   }
   ;
 %%
