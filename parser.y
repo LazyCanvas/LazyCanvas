@@ -4,6 +4,7 @@
 #include "instance.h"
 #include "attribution.h"
 #include "figure/print.h"
+#include "stack_machine.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -63,13 +64,13 @@ Line:
    | Loop BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    | END_BLOCK {
-     execute_block();
+     push_instruction(HALT, NULL, NULL, NULL, 0);
+     run_loop();
    }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
       if(finded != NULL) {
-        // TODO print variable value
         printf(">> %s\n", finded->name);
       } else {
         printf(">> Variable not exists\n");
@@ -88,10 +89,11 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
-     if(loop_is_active()) {
-       push_instruction();
+     if(block_type == 1) {
+       push_instruction(INSTANCE, $1, $3, NULL, 0);
+     } else {
+       instance_object($1, $3);
      }
-     instance_object($1, $3);
    }
    ;
 Attribution:
@@ -119,7 +121,11 @@ Action:
     if(finded == NULL) {
       printf("Variable %s not found\n", $3);
     } else {
-      draw(finded);
+      if(block_type == 1) {
+        push_instruction(ACTION, $3, NULL, NULL, 0);
+      } else {
+        draw(finded);
+      }
     }
   }
   ;
@@ -135,7 +141,8 @@ Loop:
   FOR_KEYWORD VARIABLE IN_KEYWORD RANGE_KEYWORD LEFT_PARENTHESIS Expression COMMA_KEYWORD Expression RIGHT_PARENTHESIS {
     put_new_number($2, VAR_NUMBER, $6);
     current_scope_id++;
-    init_for($2, $6, $8);
+    printf("in range(%f, %f)\n", $6, $8);
+    init_for($2, (int) $6, (int) $8);
   }
   ;
 %%

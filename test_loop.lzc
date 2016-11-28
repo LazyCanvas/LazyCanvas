@@ -1,0 +1,4 @@
+c = Circle.new
+for x in range(0, 3)
+draw(c)
+end

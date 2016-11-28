@@ -1,2 +1,14 @@
 var myCanvas = document.getElementById("lazy_canvas");
 var ctx = myCanvas.getContext("2d");
+ctx.beginPath();
+ctx.arc(0.000000, 0.000000, 0.000000, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fill();
+ctx.beginPath();
+ctx.arc(0.000000, 0.000000, 0.000000, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fill();
+ctx.beginPath();
+ctx.arc(0.000000, 0.000000, 0.000000, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fill();

@@ -22,6 +22,7 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 %% /* Roles */
 
 "new" return(NEW_KEYWORD);
+"end" return(END_BLOCK);
 "draw" return(DRAW_KEYWORD);
 "for" return(FOR_KEYWORD);
 "in" return(IN_KEYWORD);

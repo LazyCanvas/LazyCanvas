@@ -1,13 +1,7 @@
-#include "structure/objects.h"
-#include "instance.h"
-#include "attribution.h"
-
-enum code_operations {
-  INSTANCE, ATTRIBUTION, ACTION, HALT
-};
+#include "stack_machine.h"
 
 struct instruction {
-  enum code_operations operation;
+  CodeOperations operation;
   char *var_name;
   char *attribution_field;
   char *str_value;
@@ -15,8 +9,6 @@ struct instruction {
 };
 
 struct loop_instruction {
-  // boolean condition to loop
-  int active;
   char *var_name;
   int init;
   int halt_condition;
@@ -31,19 +23,23 @@ int top = 0;
 // instruction register
 struct instruction ir;
 
-struct loop_instruction loop;
-
 // program counter
 int pc = 0;
 
+int block_type;
+
+struct loop_instruction loop;
+
 void execute_block() {
   int keep_run = 1;
-
   while(keep_run) {
-    ir = code[pc++];
+    ir = code[pc];
+    // printf("Operation[%d] will executed is %d\n", pc, ir.operation);
     switch (ir.operation) {
       case INSTANCE:
+        printf("Instantiate %s like %s\n", ir.var_name, ir.attribution_field);
         instance_object(ir.var_name, ir.attribution_field);
+        printf("Success instance_object\n");
         break;
       case ATTRIBUTION:
         if(ir.attribution_field == NULL) {
@@ -63,12 +59,7 @@ void execute_block() {
         }
         break;
       case ACTION:
-        ObjectNode *finded = search_element(ir.var_name);
-        if(finded == NULL) {
-          printf("Variable %s not found\n", ir.var_name);
-        } else {
-          draw(finded);
-        }
+        draw(search_element(ir.var_name));
         break;
       case HALT:
         printf("End of block\n");
@@ -79,37 +70,54 @@ void execute_block() {
         keep_run = 0;
         break;
     }
+    pc++;
   }
   // clean program counter
   pc=0;
 }
 
 void init_for(char *var_name, int init, int halt_condition) {
-  loop.active = 1;
+  block_type = 1;
+  int var_name_size = strlen(var_name);
+  loop.var_name = (char*) malloc(sizeof(char)*var_name_size);
   strcpy(loop.var_name, var_name);
   loop.init = init;
   loop.halt_condition = halt_condition;
-}
-
-int loop_is_active() {
-  return loop.active;
+  printf("Var name: %s\n", loop.var_name);
+  printf("Loop init value %d\n", loop.init);
+  printf("Halt condition %d\n", loop.halt_condition);
 }
 
 void run_loop() {
   ObjectNode *finded = search_element(loop.var_name);
-  double loop_var = (double) finded.structure;
-  for(int x = loop_var; x < loop.halt_condition; x++) {
+  double *loop_var = (double *) finded->structure;
+  double var_value = *loop_var;
+  int x = 0;
+  for(x = var_value; x < loop.halt_condition; x++) {
     execute_block();
   }
 }
 
-void push_instruction(code_operations operation, char *var_name,
+void push_instruction(CodeOperations operation, char *var_name,
   char *attribution_field, char *str_value, double number_value) {
+
     struct instruction actual_ir;
-    actual_ir.code_operations = operation;
-    strcpy(actual_ir.var_name, var_name);
-    strcpy(actual_ir.attribution_field, attribution_field);
-    strcpy(actual_ir.str_value, str_value);
+    actual_ir.operation = operation;
+
+    printf("Operation type: %d\n", operation);
+
+    if(var_name != NULL) {
+      actual_ir.var_name = strdup(var_name);
+    }
+
+    if(attribution_field != NULL) {
+      actual_ir.attribution_field = strdup(attribution_field);
+    }
+
+    if(str_value != NULL) {
+      actual_ir.str_value = strdup(str_value);
+    }
+
     actual_ir.number_value = number_value;
     code[top] = actual_ir;
     top++;
