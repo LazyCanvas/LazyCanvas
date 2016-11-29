@@ -98,9 +98,9 @@ Expression:
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
      if(block_type == 1) {
-       if(is_if == 0 || (is_if == 1 && if_should_print == 1) ) {
-         push_instruction(INSTANCE, $1, $3, NULL, 0);
-       }
+       push_instruction(INSTANCE, $1, $3, NULL, 0);
+     } else if(block_type == 2) {
+
      } else {
        instance_object($1, $3);
      }

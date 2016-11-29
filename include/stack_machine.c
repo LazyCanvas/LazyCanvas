@@ -77,7 +77,7 @@ void execute_block() {
 }
 
 void init_if(int if_should_print) {
-  block_type = 1;
+  block_type = 2;
   is_if = 1;
   if_should_print = valueCompared;
 }
