@@ -134,11 +134,23 @@ int draw_circle(Circle *circle) {
 // This command in canvas not exist
 int draw_elipse(Elipse *elipse) {
   begin_path();
-  print_rotate(elipse->drawable);
-  fprintf(fp, "%s.ellipse(0,0,%f,%f,0,0,2 * Math.PI,false);\n", CONTEXT,
-  elipse->focus1, elipse->focus2);
-  draw_drawable(elipse->drawable);
-  print_unrotate(elipse->drawable);
+
+  float
+      centerX = elipse->drawable->position_x,
+      centerY = elipse->drawable->position_y,
+      width = elipse->width,
+      heigth = elipse->heigth;
+
+      fprintf(fp, "%s.moveTo(%f, %f - %f/2);\n", CONTEXT, centerX, centerY, heigth);
+
+      fprintf(fp, "%s.bezierCurveTo(%f + %f/2, %f - %f/2, %f + %f/2, %f + %f/2, %f, %f + %f/2);\n", CONTEXT,
+      centerX, width, centerY, heigth, centerX, width, centerY, heigth, centerX, centerY, heigth);
+      fprintf(fp, "%s.bezierCurveTo(%f - %f/2, %f + %f/2, %f - %f/2, %f - %f/2, %f, %f - %f/2);\n", CONTEXT,
+      centerX, width, centerY, heigth, centerX, width, centerY, heigth, centerX, centerY, heigth);
+
+
+      draw_drawable(elipse->drawable);
+
   return 1;
 }
 
