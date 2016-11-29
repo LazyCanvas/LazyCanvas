@@ -54,10 +54,6 @@ int draw_drawable(Drawable *drawable) {
     read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
   }
 
-  if(drawable->line_width > 0  && read_success > 0) {
-    read_success = fprintf(fp, "%s.lineWidth = %f;\n", CONTEXT, drawable->line_width);
-  }
-
   if(read_success >= 0) {
     read_success = stroke();
   } else {
@@ -75,7 +71,6 @@ int draw_drawable(Drawable *drawable) {
   if(read_success > 0) {
     success = true;
   }
-  print_unrotate(drawable);
 
   return success;
 }
@@ -104,7 +99,11 @@ int draw_rectangle(Rectangle *rectangle) {
      fprintf(fp, "%s.rect(%f / -2,%f / -2,%f,%f);\n", CONTEXT,
      rectangle->drawable->position_x, rectangle->drawable->position_y,
      rectangle->width,  rectangle->heigth );
+
    draw_drawable(rectangle->drawable);
+
+   print_unrotate(rectangle->drawable);
+
    //fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, rectangle->drawable->rotate);
    //fprintf(fp, "%s.stroke();\n", CONTEXT);
    //fprintf(fp, "%s.fill();\n", CONTEXT);
@@ -113,7 +112,6 @@ int draw_rectangle(Rectangle *rectangle) {
 
 int draw_circle(Circle *circle) {
   int read_success = begin_path();
-  print_rotate(circle->drawable);
 
   if(read_success > 0 ) {
     read_success = fprintf(fp, "%s.arc(%f, %f, %f, 0, 2 * Math.PI);\n",
@@ -140,17 +138,22 @@ int draw_elipse(Elipse *elipse) {
   fprintf(fp, "%s.ellipse(0,0,%f,%f,0,0,2 * Math.PI,false);\n", CONTEXT,
   elipse->focus1, elipse->focus2);
   draw_drawable(elipse->drawable);
-
+  print_unrotate(elipse->drawable);
   return 1;
 }
 
 int draw_line(Line *line) {
   int read_success = begin_path();
-  print_rotate(line->drawable);
+  //print_rotate(line->drawable);
   if(read_success > 0) {
-    read_success = fprintf(fp, "%s.moveTo(%f,%f);\n", CONTEXT,
-      line->drawable->position_x, line->drawable->position_y);
-    if(read_success > 0) {
+      if( line->drawable->rotate > 0 ){
+        fprintf(fp, "%s.translate(%f,%f);\n",CONTEXT,line->drawable->position_x, line->drawable->position_y);
+        fprintf(fp, "%s.rotate(%f*Math.PI/180);\n", CONTEXT, line->drawable->rotate);
+      }
+        read_success = fprintf(fp, "%s.moveTo(%f,%f);\n", CONTEXT,
+         line->drawable->position_x, line->drawable->position_y);
+
+      if(read_success > 0) {
       read_success = fprintf(fp, "%s.lineTo(%f,%f);\n", CONTEXT,
         line->second_position_x, line->second_position_y );
     }
@@ -158,11 +161,15 @@ int draw_line(Line *line) {
 
   int success = false;
   success = draw_drawable(line->drawable);
-
+  //print_unrotate(line->drawable);
   if(success && read_success > 0) {
     success = true;
   } else {
     success = false;
+  }
+  if( line->drawable->rotate > 0 ){
+    fprintf(fp, "%s.rotate(-%f*Math.PI/180);\n", CONTEXT, line->drawable->rotate);
+    fprintf(fp, "%s.translate(-%f,-%f);\n",CONTEXT,line->drawable->position_x, line->drawable->position_y);
   }
 
   return success;
@@ -170,16 +177,12 @@ int draw_line(Line *line) {
 
 int draw_arc(Arc *arc) {
   begin_path();
-  print_rotate(arc->drawable);
 
   fprintf(fp, "%s.arc(%f,%f,%f,(%f / 180) * Math.PI , (%f / 180) * Math.PI);\n", CONTEXT,
     arc->drawable->position_x, arc->drawable->position_y,
-    arc->radius, arc->start_angle, arc->final_angle);
+    arc->radius, arc->start_angle + arc->drawable->rotate, arc->final_angle + arc->drawable->rotate);
 
   draw_drawable(arc->drawable);
-
-  //fprintf(fp, "%s.stroke();\n", CONTEXT);
-  //fprintf(fp, "%s.fill();\n", CONTEXT);
 
   return 1;
 }

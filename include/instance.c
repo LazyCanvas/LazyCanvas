@@ -1,7 +1,10 @@
 #include "instance.h"
 
 Drawable* init_drawable() {
-  return (Drawable*) malloc(sizeof(Drawable));
+  Drawable *drawable = (Drawable*) malloc(sizeof(Drawable));
+  drawable->rotate = 0;
+  drawable->line_width  = 0;
+  return drawable;
 }
 
 double parse_double(void* text) {
@@ -124,6 +127,8 @@ void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *va
      elipse->drawable->background = text;
    } else if(strcmp(attribute, LINE_WIDTH) == 0){
      elipse->drawable->line_width = parse_double(text);
+   } else if(strcmp(attribute, ROTATE) == 0){
+     elipse->drawable->rotate = parse_double(text);
    } else {
      print_no_attribute(variable_name, attribute);
    }
@@ -162,6 +167,8 @@ void attribution_on_line(Line* line, char *attribute, void *text, char *variable
     line->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
     line->drawable->line_width = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    line->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
@@ -182,6 +189,8 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
     arc->start_angle = parse_double(text);
   } else if(strcmp(attribute, FINAL_ANGLE)==0) {
     arc->final_angle = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    arc->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
