@@ -1,4 +1,5 @@
 #include "stack_machine.h"
+#include "if.h"
 
 struct instruction {
   CodeOperations operation;
@@ -77,9 +78,8 @@ void execute_block() {
   pc=0;
 }
 
-void init_if(int if_should_print) {
-  block_type = 2;
-  is_if = 1;
+void init_if(int valueCompared) {
+  block_type = IFELSE;
   if_should_print = valueCompared;
 }
 
