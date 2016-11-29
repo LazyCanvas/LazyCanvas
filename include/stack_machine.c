@@ -26,7 +26,7 @@ struct instruction ir;
 // program counter
 int pc = 0;
 
-int block_type;
+BlockType block_type = DEFAULT;
 
 struct loop_instruction loop;
 
@@ -34,7 +34,7 @@ void execute_block() {
   int keep_run = 1;
   while(keep_run) {
     ir = code[pc];
-    // printf("Operation[%d] will executed is %d\n", pc, ir.operation);
+    printf("Operation[%d] will executed is %d\n", pc, ir.operation);
     switch (ir.operation) {
       case INSTANCE:
         printf("Instantiate %s like %s\n", ir.var_name, ir.attribution_field);
@@ -62,7 +62,6 @@ void execute_block() {
         draw(search_element(ir.var_name));
         break;
       case HALT:
-        printf("End of block\n");
         keep_run = 0;
         break;
       default:
@@ -77,7 +76,7 @@ void execute_block() {
 }
 
 void init_for(char *var_name, int init, int halt_condition) {
-  block_type = 1;
+  block_type = LOOP;
   int var_name_size = strlen(var_name);
   loop.var_name = (char*) malloc(sizeof(char)*var_name_size);
   strcpy(loop.var_name, var_name);
@@ -94,8 +93,12 @@ void run_loop() {
   double var_value = *loop_var;
   int x = 0;
   for(x = var_value; x < loop.halt_condition; x++) {
+    // update loop var
+    // finded->structure = x;
     execute_block();
   }
+  block_type = DEFAULT;
+  top = 0;
 }
 
 void push_instruction(CodeOperations operation, char *var_name,

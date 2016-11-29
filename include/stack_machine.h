@@ -9,6 +9,10 @@ typedef enum code_operations {
   INSTANCE = 0, ATTRIBUTION = 1, ACTION = 2, HALT = 3
 } CodeOperations;
 
+typedef enum block_type {
+  DEFAULT = 0, LOOP = 1, DEF = 2, IFELSE = 3
+} BlockType;
+
 // position of stack code
 extern int top;
 
@@ -20,6 +24,6 @@ extern struct loop_instruction loop;
 // program counter
 extern int pc;
 
-extern int block_type;
+extern BlockType block_type;
 
 #endif

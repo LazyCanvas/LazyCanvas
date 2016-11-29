@@ -145,3 +145,22 @@ int remove_node(char* name) {
 
   return 0;
 }
+
+void print_object(ObjectNode* node) {
+  switch (node->object_type) {
+    case VAR_TEXT: {
+      char *value_pointer = (char *) node->structure;
+      char *var_value = strdup(value_pointer);
+      printf("%s\n", var_value);
+      break;
+    }
+    case VAR_NUMBER: {
+      double *value_pointer = (double *) node->structure;
+      double var_value = *value_pointer;
+      printf("%f\n", var_value);
+      break;
+    }
+    default:
+      printf("It is an drawable\n");
+  }
+}

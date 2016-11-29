@@ -56,8 +56,8 @@ Input:
    | Input Line {}
    ;
 Line:
-   BREAK_LINE
-   | Expression BREAK_LINE { printf(">> %f\n",$1); }
+   BREAK_LINE { printf(">>"); }
+   | Expression BREAK_LINE { printf("%f\n>>",$1); }
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
@@ -71,7 +71,8 @@ Line:
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
       if(finded != NULL) {
-        printf(">> %s\n", finded->name);
+        printf(">=");
+        print_object(finded);
       } else {
         printf(">> Variable not exists\n");
       }
@@ -89,7 +90,7 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
-     if(block_type == 1) {
+     if(block_type != 0) {
        push_instruction(INSTANCE, $1, $3, NULL, 0);
      } else {
        instance_object($1, $3);
@@ -107,7 +108,11 @@ Attribution:
    ;
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
-      include_text_on_object_attribute($1, $3, $5);
+       if(block_type != 0) {
+         push_instruction(ATTRIBUTION, $1, $3, NULL, 0);
+       } else {
+         include_text_on_object_attribute($1, $3, $5);
+       }
    }
    ;
    /* Attribution of object with textual type */
@@ -121,7 +126,7 @@ Action:
     if(finded == NULL) {
       printf("Variable %s not found\n", $3);
     } else {
-      if(block_type == 1) {
+      if(block_type != 0) {
         push_instruction(ACTION, $3, NULL, NULL, 0);
       } else {
         draw(finded);
