@@ -80,6 +80,12 @@ Line:
    ;
 Expression:
    NUMBER { $$=$1; }
+   | VARIABLE {
+     ObjectNode *finded = search_element($1);
+     double *pointer_value = (double *) finded->structure;
+     double var_value = *pointer_value;
+     $$=var_value;
+   }
    | Expression PLUS Expression { $$=$1+$3; }
    | Expression MINUS Expression { $$=$1-$3; }
    | Expression TIMES Expression { $$=$1*$3; }
@@ -116,7 +122,7 @@ Attribution:
    }
    ;
    /* Attribution of object with textual type */
-   | VARIABLE DOT VARIABLE EQUALS NUMBER {
+   | VARIABLE DOT VARIABLE EQUALS Expression {
      if(block_type != 0) {
        push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
      } else {
