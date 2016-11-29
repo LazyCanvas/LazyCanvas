@@ -42,6 +42,7 @@ void execute_block() {
         printf("Success instance_object\n");
         break;
       case ATTRIBUTION:
+        // variable attribution
         if(ir.attribution_field == NULL) {
           if(ir.str_value == NULL) {
             put_new_number(ir.var_name, VAR_NUMBER, ir.number_value);
@@ -49,6 +50,7 @@ void execute_block() {
             put_new_text(ir.var_name, VAR_TEXT, ir.str_value);
           }
         } else {
+          // object property attribution
           if(ir.str_value == NULL) {
             include_number_on_object_attribute(ir.var_name,
               ir.attribution_field, ir.number_value);
@@ -111,14 +113,20 @@ void push_instruction(CodeOperations operation, char *var_name,
 
     if(var_name != NULL) {
       actual_ir.var_name = strdup(var_name);
+    } else {
+      actual_ir.var_name = NULL;
     }
 
     if(attribution_field != NULL) {
       actual_ir.attribution_field = strdup(attribution_field);
+    } else {
+      actual_ir.attribution_field = NULL;
     }
 
     if(str_value != NULL) {
       actual_ir.str_value = strdup(str_value);
+    } else {
+      actual_ir.str_value = NULL;
     }
 
     actual_ir.number_value = number_value;

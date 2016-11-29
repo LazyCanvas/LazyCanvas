@@ -1,5 +1,8 @@
-c = Circle.new
-c.lineWidth=5
+line = Line.new
+line.x = 100
+line.y = 200
+line.x1 = 300
 for x in range(0, 5)
-draw(c)
+line.y1 = 400
+draw(line)
 end
