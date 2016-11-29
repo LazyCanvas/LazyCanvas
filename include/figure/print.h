@@ -78,4 +78,8 @@ int draw_arc(Arc *arc);
  */
 int clean_canvas(void);
 
+void print_rotate(Drawable *drawable);
+
+void print_unrotate(Drawable *drawable);
+
 #endif

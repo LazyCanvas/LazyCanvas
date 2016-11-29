@@ -1,4 +1,8 @@
-c = Circle.new
-for x in range(0, 3)
-draw(c)
+circle = Circle.new
+circle.x = 100
+circle.y = 100
+circle.radius = 50
+for x in range(0, 5)
+circle.x = 100+(x*10)
+draw(circle)
 end

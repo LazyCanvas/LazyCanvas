@@ -26,7 +26,7 @@ struct instruction ir;
 // program counter
 int pc = 0;
 
-int block_type;
+BlockType block_type = DEFAULT;
 
 struct loop_instruction loop;
 
@@ -34,7 +34,7 @@ void execute_block() {
   int keep_run = 1;
   while(keep_run) {
     ir = code[pc];
-    // printf("Operation[%d] will executed is %d\n", pc, ir.operation);
+    printf("Operation[%d] will executed is %d\n", pc, ir.operation);
     switch (ir.operation) {
       case INSTANCE:
         printf("Instantiate %s like %s\n", ir.var_name, ir.attribution_field);
@@ -42,6 +42,7 @@ void execute_block() {
         printf("Success instance_object\n");
         break;
       case ATTRIBUTION:
+        // variable attribution
         if(ir.attribution_field == NULL) {
           if(ir.str_value == NULL) {
             put_new_number(ir.var_name, VAR_NUMBER, ir.number_value);
@@ -49,6 +50,7 @@ void execute_block() {
             put_new_text(ir.var_name, VAR_TEXT, ir.str_value);
           }
         } else {
+          // object property attribution
           if(ir.str_value == NULL) {
             include_number_on_object_attribute(ir.var_name,
               ir.attribution_field, ir.number_value);
@@ -62,7 +64,6 @@ void execute_block() {
         draw(search_element(ir.var_name));
         break;
       case HALT:
-        printf("End of block\n");
         keep_run = 0;
         break;
       default:
@@ -83,7 +84,7 @@ void init_if(int if_should_print) {
 }
 
 void init_for(char *var_name, int init, int halt_condition) {
-  block_type = 1;
+  block_type = LOOP;
   int var_name_size = strlen(var_name);
   loop.var_name = (char*) malloc(sizeof(char)*var_name_size);
   strcpy(loop.var_name, var_name);
@@ -94,14 +95,30 @@ void init_for(char *var_name, int init, int halt_condition) {
   printf("Halt condition %d\n", loop.halt_condition);
 }
 
+void print_x(){
+  ObjectNode *finded = search_element(loop.var_name);
+  double *loop_var = (double *) finded->structure;
+  double var_value = *loop_var;
+  printf("(double) x = %f\n", var_value);
+}
+
 void run_loop() {
   ObjectNode *finded = search_element(loop.var_name);
   double *loop_var = (double *) finded->structure;
   double var_value = *loop_var;
+
   int x = 0;
-  for(x = var_value; x < loop.halt_condition; x++) {
+
+  for(x = (int) var_value; x < loop.halt_condition; x++) {
     execute_block();
+
+    free(finded->structure);
+
+    // update loop var
+    put_new_number(finded->name, VAR_NUMBER, x);
   }
+  block_type = DEFAULT;
+  top = 0;
 }
 
 void push_instruction(CodeOperations operation, char *var_name,
@@ -114,14 +131,20 @@ void push_instruction(CodeOperations operation, char *var_name,
 
     if(var_name != NULL) {
       actual_ir.var_name = strdup(var_name);
+    } else {
+      actual_ir.var_name = NULL;
     }
 
     if(attribution_field != NULL) {
       actual_ir.attribution_field = strdup(attribution_field);
+    } else {
+      actual_ir.attribution_field = NULL;
     }
 
     if(str_value != NULL) {
       actual_ir.str_value = strdup(str_value);
+    } else {
+      actual_ir.str_value = NULL;
     }
 
     actual_ir.number_value = number_value;

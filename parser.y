@@ -61,8 +61,8 @@ Input:
    | Input Line {}
    ;
 Line:
-   BREAK_LINE
-   | Expression BREAK_LINE { printf(">> %f\n",$1); }
+   BREAK_LINE { printf(">>"); }
+   | Expression BREAK_LINE { printf("%f\n>>",$1); }
    | Instance BREAK_LINE
    | Attribution BREAK_LINE
    | Action BREAK_LINE
@@ -79,7 +79,8 @@ Line:
    | VARIABLE BREAK_LINE {
       ObjectNode *finded = search_element($1);
       if(finded != NULL) {
-        printf(">> %s\n", finded->name);
+        printf(">=");
+        print_object(finded);
       } else {
         printf(">> Variable not exists\n");
       }
@@ -87,6 +88,12 @@ Line:
    ;
 Expression:
    NUMBER { $$=$1; }
+   | VARIABLE {
+     ObjectNode *finded = search_element($1);
+     double *pointer_value = (double *) finded->structure;
+     double var_value = *pointer_value;
+     $$=var_value;
+   }
    | Expression PLUS Expression { $$=$1+$3; }
    | Expression MINUS Expression { $$=$1-$3; }
    | Expression TIMES Expression { $$=$1*$3; }
@@ -97,7 +104,7 @@ Expression:
    ;
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
-     if(block_type == 1) {
+     if(block_type != 0) {
        push_instruction(INSTANCE, $1, $3, NULL, 0);
      } else if(block_type == 2) {
 
@@ -117,12 +124,20 @@ Attribution:
    ;
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
-      include_text_on_object_attribute($1, $3, $5);
+       if(block_type != 0) {
+         push_instruction(ATTRIBUTION, $1, $3, $5, 0);
+       } else {
+         include_text_on_object_attribute($1, $3, $5);
+       }
    }
    ;
    /* Attribution of object with textual type */
-   | VARIABLE DOT VARIABLE EQUALS NUMBER {
-     include_number_on_object_attribute($1, $3, $5);
+   | VARIABLE DOT VARIABLE EQUALS Expression {
+     if(block_type != 0) {
+       push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
+     } else {
+       include_number_on_object_attribute($1, $3, $5);
+     }
    }
    ;
 Action:
@@ -131,7 +146,7 @@ Action:
     if(finded == NULL) {
       printf("Variable %s not found\n", $3);
     } else {
-      if(block_type == 1) {
+      if(block_type != 0) {
         push_instruction(ACTION, $3, NULL, NULL, 0);
       } else {
         draw(finded);

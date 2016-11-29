@@ -32,6 +32,10 @@ typedef struct drawable {
    * Line needs a thickness
    */
   double line_width;
+  /**
+   * Rotate object
+   */
+  double rotate;
 }Drawable;
 
 //TODO FIX HERE, FOCUS IS SUPPOSED TO HAVE focus_x and focus_y

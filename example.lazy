@@ -17,12 +17,13 @@ line.y1 = 400
 draw(line)
 
 rectangle = Rectangle.new
-rectangle.x = 400
-rectangle.y = 400
+rectangle.x = 100
+rectangle.y = 100
 rectangle.width = 200
 rectangle.heigth = 300
 rectangle.background = "black"
 rectangle.lineWidth = 5
+rectangle.rotate = 50
 draw(rectangle)
 
 arc = Arc.new

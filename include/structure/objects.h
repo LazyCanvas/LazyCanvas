@@ -89,4 +89,6 @@ void clean_stack(void);
  */
 int remove_node(char* name);
 
+void print_object(ObjectNode* node);
+
 #endif

@@ -110,7 +110,23 @@ void attribution_on_circle(Circle *circle, char *attribute, void *text, char *va
 }
 
 void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *variable_name) {
-  // TODO
+  if(strcmp(attribute, X)==0) {
+     elipse->drawable->position_x = parse_double(text);
+   } else if(strcmp(attribute, Y)==0) {
+     elipse->drawable->position_y = parse_double(text);
+   } else if(strcmp(attribute, FOCUS1)==0) {
+     elipse->focus1 = parse_double(text);
+   } else if(strcmp(attribute, FOCUS2)==0) {
+     elipse->focus2 = parse_double(text);
+   } else if(strcmp(attribute, DISTANCE)==0) {
+     elipse->distance = parse_double(text);
+   } else if(strcmp(attribute, BACKGROUND)==0) {
+     elipse->drawable->background = text;
+   } else if(strcmp(attribute, LINE_WIDTH) == 0){
+     elipse->drawable->line_width = parse_double(text);
+   } else {
+     print_no_attribute(variable_name, attribute);
+   }
 }
 
 void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name) {
@@ -126,6 +142,8 @@ void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, 
     rectangle->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
     rectangle->drawable->line_width = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    rectangle->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
