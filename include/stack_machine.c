@@ -76,6 +76,12 @@ void execute_block() {
   pc=0;
 }
 
+void init_if(int if_should_print) {
+  block_type = 1;
+  is_if = 1;
+  if_should_print = valueCompared;
+}
+
 void init_for(char *var_name, int init, int halt_condition) {
   block_type = 1;
   int var_name_size = strlen(var_name);

@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "if.h"
+
 FILE *yyin;
 int yylex();
 %}
@@ -69,7 +71,9 @@ Line:
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    | END_BLOCK {
      push_instruction(HALT, NULL, NULL, NULL, 0);
+
      run_loop();
+
    }
    /* Search a variable */
    | VARIABLE BREAK_LINE {
@@ -94,7 +98,9 @@ Expression:
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
      if(block_type == 1) {
-       push_instruction(INSTANCE, $1, $3, NULL, 0);
+       if(is_if == 0 || (is_if == 1 && if_should_print == 1) ) {
+         push_instruction(INSTANCE, $1, $3, NULL, 0);
+       }
      } else {
        instance_object($1, $3);
      }
@@ -175,7 +181,7 @@ If:
       break;
     }
 
-    if_should_print = valueCompared;
+    init_if(valueCompared);
   }
   ;
 Compare:
@@ -195,6 +201,7 @@ int yyerror(char *s) {
 
 int main(int argc, char *argv[]) {
   clean_canvas();
+  is_if = 0;
 
   if(strcmp(argv[1],"-c")!=0) {
     printf("%s\n",argv[1]);
