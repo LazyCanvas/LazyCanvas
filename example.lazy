@@ -39,5 +39,5 @@ elipse = Elipse.new
 elipse.x = 350
 elipse.y = 350
 elipse.heigth = 50
-elipse.width = 75
+elipse.width = 100
 draw(elipse)

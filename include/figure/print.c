@@ -124,21 +124,19 @@ int draw_circle(Circle *circle) {
 int draw_elipse(Elipse *elipse) {
   begin_path();
 
-  float hB = (elipse->width / 2) * .5522848,
-      vB = (elipse->heigth / 2) * .5522848,
-      eX = elipse->drawable->position_x + elipse->width,
-      eY = elipse->drawable->position_y + elipse->heigth,
-      mX = elipse->drawable->position_x + elipse->width/ 2,
-      mY = elipse->drawable->position_y + elipse->heigth / 2;
+  float
+      centerX = elipse->drawable->position_x,
+      centerY = elipse->drawable->position_y,
+      width = elipse->width,
+      heigth = elipse->heigth;
 
-      fprintf(fp, "%s.bezierCurveTo(%f, %f - %f, %f - %f, %f, %f, %f);\n", CONTEXT,
-      elipse->drawable->position_x, mY, vB, mX, hB, elipse->drawable->position_y, mX, elipse->drawable->position_y);
-      fprintf(fp, "%s.bezierCurveTo(%f + %f, %f, %f, %f - %f, %f, %f);\n", CONTEXT,
-      mX, hB, elipse->drawable->position_y, eX, mY, vB, eX, mY);
-      fprintf(fp, "%s.bezierCurveTo(%f, %f + %f, %f + %f, %f, %f, %f);\n", CONTEXT,
-      eX, mY, vB, mX, hB, eY, mX, eY);
-      fprintf(fp, "%s.bezierCurveTo(%f - %f, %f, %f, %f + %f, %f, %f);\n", CONTEXT,
-      mX, hB, eY, elipse->drawable->position_x, mY, vB, elipse->drawable->position_x, mY);
+      fprintf(fp, "%s.moveTo(%f, %f - %f/2);\n", CONTEXT, centerX, centerY, heigth);
+
+      fprintf(fp, "%s.bezierCurveTo(%f + %f/2, %f - %f/2, %f + %f/2, %f + %f/2, %f, %f + %f/2);\n", CONTEXT,
+      centerX, width, centerY, heigth, centerX, width, centerY, heigth, centerX, centerY, heigth);
+      fprintf(fp, "%s.bezierCurveTo(%f - %f/2, %f + %f/2, %f - %f/2, %f - %f/2, %f, %f - %f/2);\n", CONTEXT,
+      centerX, width, centerY, heigth, centerX, width, centerY, heigth, centerX, centerY, heigth);
+
 
       draw_drawable(elipse->drawable);
 
