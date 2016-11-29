@@ -28,15 +28,18 @@ int yylex();
 /* Some keywords */
 %token END_BLOCK NEW_KEYWORD DEF_KEYWORD DRAW_KEYWORD
 %token FOR_KEYWORD IN_KEYWORD RANGE_KEYWORD
+%token IF_KEYWORD
 
 /* Data */
 %token VARIABLE
 %token TYPES
 %token NUMBER TEXT
 
+%token EQUALS_TO GREATTER_EQUALS_THEN SMALLER_EQUALS_THEN DIFFERENT_THEN SMALLER_THEN BIGGER_THEN
+
 /* Associates type with token, support only two types */
 
-%type<numeral> Expression NUMBER
+%type<numeral> Expression NUMBER Compare
 %type<string> Parameter
 %type<string> TEXT
 %type<string> VARIABLE
@@ -62,6 +65,7 @@ Line:
    | Attribution BREAK_LINE
    | Action BREAK_LINE
    | Loop BREAK_LINE
+   | If BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    | END_BLOCK {
      push_instruction(HALT, NULL, NULL, NULL, 0);
@@ -145,7 +149,45 @@ Loop:
     init_for($2, (int) $6, (int) $8);
   }
   ;
+If:
+  IF_KEYWORD Expression Compare Expression   {
+    current_scope_id++;
+    int compare = (int) $3;
+    int valueCompared = 0;
+    switch (compare) {
+      case 0:
+        valueCompared = $2 == $4;
+      break;
+      case 1:
+        valueCompared = $2 >= $4;
+      break;
+      case 2:
+        valueCompared = $2 <= $4;
+      break;
+      case 3:
+        valueCompared = $2 != $4;
+      break;
+      case 4:
+        valueCompared = $2 < $4;
+      break;
+      case 5:
+        valueCompared = $2 > $4;
+      break;
+    }
+
+    if_should_print = valueCompared;
+  }
+  ;
+Compare:
+  EQUALS_TO {$$ = 0;}
+  | GREATTER_EQUALS_THEN {$$ = 1;}
+  | SMALLER_EQUALS_THEN {$$ = 2;}
+  | DIFFERENT_THEN {$$ = 3;}
+  | SMALLER_THEN {$$ = 4;}
+  | BIGGER_THEN {$$ = 5;}
+  ;
 %%
+
 
 int yyerror(char *s) {
    printf(">> ERROR: %s\n",s);

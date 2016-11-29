@@ -27,9 +27,9 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 "for" return(FOR_KEYWORD);
 "in" return(IN_KEYWORD);
 "range" return(RANGE_KEYWORD);
+"if" return(IF_KEYWORD);
 "," return(COMMA_KEYWORD);
-{blank} {/* Ignore white characters */ }
-
+{blank} {/* Ignore white characters */ };
 
 {text} {
   int string_size = sizeof(char)*strlen(yytext);
@@ -61,9 +61,15 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 "^" return(POWER);
 "(" return(LEFT_PARENTHESIS);
 ")" return(RIGHT_PARENTHESIS);
+"==" return(EQUALS_TO);
 "=" return(EQUALS);
 "\n" return(BREAK_LINE);
 "." return(DOT);
+">=" return(GREATTER_EQUALS_THEN);
+"<=" return(SMALLER_EQUALS_THEN);
+"!=" return(DIFFERENT_THEN);
+"<" return(SMALLER_THEN);
+">" return(BIGGER_THEN);
 %%
 
 yywrap () {
