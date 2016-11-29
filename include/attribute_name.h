@@ -20,4 +20,8 @@
   extern const char* HEIGTH;
   extern const char* CENTER_X;
   extern const char* CENTER_Y;
+  extern const char* FOCUS1;
+  extern const char* FOCUS2;
+  extern const char* DISTANCE;
+  extern const char* ROTATE;
 #endif
