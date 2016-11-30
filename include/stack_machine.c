@@ -95,13 +95,6 @@ void init_for(char *var_name, int init, int halt_condition) {
   printf("Halt condition %d\n", loop.halt_condition);
 }
 
-void print_x(){
-  ObjectNode *finded = search_element(loop.var_name);
-  double *loop_var = (double *) finded->structure;
-  double var_value = *loop_var;
-  printf("(double) x = %f\n", var_value);
-}
-
 void run_loop() {
   ObjectNode *finded = search_element(loop.var_name);
   double *loop_var = (double *) finded->structure;
@@ -112,10 +105,17 @@ void run_loop() {
   for(x = (int) var_value; x < loop.halt_condition; x++) {
     execute_block();
 
-    free(finded->structure);
-
     // update loop var
     put_new_number(finded->name, VAR_NUMBER, x);
+  }
+  block_type = DEFAULT;
+  top = 0;
+}
+
+void run_ifelse() {
+  printf("Run ifelse\n");
+  if(if_should_print) {
+    execute_block();
   }
   block_type = DEFAULT;
   top = 0;
