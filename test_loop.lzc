@@ -1,8 +1,8 @@
-circle = Circle.new
-circle.x = 100
-circle.y = 100
-circle.radius = 50
-for x in range(0, 5)
-circle.x = 100+(x*10)
-draw(circle)
+line = Line.new
+line.x = 500
+line.y = 500
+line.x1 = 550
+line.y1 = 400
+if 1==1
+draw(line)
 end

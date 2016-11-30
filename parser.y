@@ -41,7 +41,7 @@ int yylex();
 
 /* Associates type with token, support only two types */
 
-%type<numeral> Expression NUMBER Compare
+%type<numeral> Expression NUMBER
 %type<string> Parameter
 %type<string> TEXT
 %type<string> VARIABLE
@@ -70,11 +70,18 @@ Line:
    | If BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    | END_BLOCK {
-     if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
+     if(block_type != 0) {
        push_instruction(HALT, NULL, NULL, NULL, 0);
      }
+     switch (block_type) {
+       case LOOP: {
+         run_loop();
+         break;
+      }
+       case IFELSE: {
 
-     run_loop();
+       }
+     }
 
    }
    /* Search a variable */
@@ -107,9 +114,7 @@ Expression:
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
      if(block_type != 0) {
-       if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-         push_instruction(INSTANCE, $1, $3, NULL, 0);
-       }
+       push_instruction(INSTANCE, $1, $3, NULL, 0);
      } else {
        instance_object($1, $3);
      }
@@ -127,9 +132,7 @@ Attribution:
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
        if(block_type != 0) {
-         if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-           push_instruction(ATTRIBUTION, $1, $3, $5, 0);
-         }
+         push_instruction(ATTRIBUTION, $1, $3, $5, 0);
        } else {
          include_text_on_object_attribute($1, $3, $5);
        }
@@ -138,9 +141,7 @@ Attribution:
    /* Attribution of object with textual type */
    | VARIABLE DOT VARIABLE EQUALS Expression {
      if(block_type != 0) {
-       if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-         push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
-       }
+       push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
      } else {
        include_number_on_object_attribute($1, $3, $5);
      }
@@ -153,9 +154,7 @@ Action:
       printf("Variable %s not found\n", $3);
     } else {
       if(block_type != 0) {
-        if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-          push_instruction(ACTION, $3, NULL, NULL, 0);
-        }
+        push_instruction(ACTION, $3, NULL, NULL, 0);
       } else {
         draw(finded);
       }
