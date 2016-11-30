@@ -1,48 +1,5 @@
 var myCanvas = document.getElementById("lazy_canvas");
 var ctx = myCanvas.getContext("2d");
-<<<<<<< HEAD
-=======
-ctx.beginPath();
-ctx.arc(100.000000, 100.000000, 50.000000, 0, 2 * Math.PI);
-ctx.stroke();
-ctx.fill();
-ctx.beginPath();
-ctx.arc(250.000000, 100.000000, 50.000000, 0, 2 * Math.PI);
-ctx.fillStyle = "#DCDCDC";
-ctx.lineWidth = 2.000000;
-ctx.lineWidth = 2.000000;
-ctx.stroke();
-ctx.fill();
-ctx.beginPath();
-ctx.moveTo(500.000000,500.000000);
-ctx.lineTo(550.000000,400.000000);
-ctx.stroke();
-ctx.fill();
-ctx.beginPath();
-ctx.translate(lazy_canvas.width / 2, lazy_canvas.height / 2);
-ctx.rotate(50.000000*Math.PI/180);
-ctx.rect(100.000000 / -2,100.000000 / -2,200.000000,300.000000);
-ctx.fillStyle = "black";
-ctx.lineWidth = 5.000000;
-ctx.lineWidth = 5.000000;
-ctx.stroke();
-ctx.fill();
-ctx.rotate((-1)*50.000000*Math.PI/180);
-ctx.translate(-lazy_canvas.width / 2, -lazy_canvas.height / 2);
-ctx.beginPath();
-ctx.arc(200.000000,200.000000,50.000000,(0.000000 / 180) * Math.PI , (180.000000 / 180) * Math.PI);
-ctx.fillStyle = "red";
-ctx.lineWidth = 3.000000;
-ctx.lineWidth = 3.000000;
-ctx.stroke();
-ctx.fill();
-ctx.beginPath();
-ctx.moveTo(350.000000, 350.000000 - 50.000000/2);
-ctx.bezierCurveTo(350.000000 + 100.000000/2, 350.000000 - 50.000000/2, 350.000000 + 100.000000/2, 350.000000 + 50.000000/2, 350.000000, 350.000000 + 50.000000/2);
-ctx.bezierCurveTo(350.000000 - 100.000000/2, 350.000000 + 50.000000/2, 350.000000 - 100.000000/2, 350.000000 - 50.000000/2, 350.000000, 350.000000 - 50.000000/2);
-ctx.stroke();
-ctx.fill();
->>>>>>> 120dfbe433d86b167b0471172e28b6f4b60d2051
 ctx.beginPath();
 ctx.arc(100.000000, 100.000000, 50.000000, 0, 2 * Math.PI);
 ctx.stroke();

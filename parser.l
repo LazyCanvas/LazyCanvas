@@ -70,8 +70,10 @@ variable ([a-zA-Z_][a-zA-Z0-9_]*)
 "!=" return(DIFFERENT_THEN);
 "<" return(SMALLER_THEN);
 ">" return(BIGGER_THEN);
-%%
 
-yywrap () {
-   return 0;
-}
+<<EOF>> {
+  printf("oi\n");
+  exit(1);
+};
+
+%%

@@ -228,6 +228,10 @@ int yyerror(char *s) {
    printf(">> ERROR: %s\n",s);
 }
 
+int yywrap(void) {
+  exit(1);
+}
+
 int main(int argc, char *argv[]) {
   clean_canvas();
 
