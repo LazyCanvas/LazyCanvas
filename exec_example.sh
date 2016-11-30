@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 make clean
 make
-./lazyc example.lazy -c
+./lazyc examples/example.lazy -c
