@@ -1,0 +1,7 @@
+circle = Circle.new
+circle.x = 100
+circle.y = 100
+circle.radius = 50
+if 1 == 1
+  draw(circle)
+end

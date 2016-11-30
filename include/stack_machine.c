@@ -105,8 +105,6 @@ void run_loop() {
   for(x = (int) var_value; x < loop.halt_condition; x++) {
     execute_block();
 
-    free(finded->structure);
-
     // update loop var
     put_new_number(finded->name, VAR_NUMBER, x);
   }

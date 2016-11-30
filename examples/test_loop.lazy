@@ -3,6 +3,5 @@ circle.x = 100
 circle.y = 100
 circle.radius = 50
 for x in range(0, 5)
-circle.x = 100+(x*10)
-draw(circle)
+  draw(circle)
 end
