@@ -1,7 +1,10 @@
 #include "instance.h"
 
 Drawable* init_drawable() {
-  return (Drawable*) malloc(sizeof(Drawable));
+  Drawable *drawable = (Drawable*) malloc(sizeof(Drawable));
+  drawable->rotate = 0;
+  drawable->line_width  = 0;
+  return drawable;
 }
 
 double parse_double(void* text) {
@@ -110,23 +113,24 @@ void attribution_on_circle(Circle *circle, char *attribute, void *text, char *va
 }
 
 void attribution_on_elipse(Elipse *elipse, char *attribute, void *text, char *variable_name) {
-  if(strcmp(attribute, X)==0) {
-     elipse->drawable->position_x = parse_double(text);
-   } else if(strcmp(attribute, Y)==0) {
-     elipse->drawable->position_y = parse_double(text);
-   } else if(strcmp(attribute, FOCUS1)==0) {
-     elipse->focus1 = parse_double(text);
-   } else if(strcmp(attribute, FOCUS2)==0) {
-     elipse->focus2 = parse_double(text);
-   } else if(strcmp(attribute, DISTANCE)==0) {
-     elipse->distance = parse_double(text);
-   } else if(strcmp(attribute, BACKGROUND)==0) {
-     elipse->drawable->background = text;
-   } else if(strcmp(attribute, LINE_WIDTH) == 0){
-     elipse->drawable->line_width = parse_double(text);
-   } else {
-     print_no_attribute(variable_name, attribute);
-   }
+
+  if(strcmp(attribute, WIDTH)==0) {
+    elipse->width = *((double*) text);
+  } else if(strcmp(attribute, HEIGTH)==0) {
+    elipse->heigth = *((double*) text);
+  } else if(strcmp(attribute, BACKGROUND) == 0) {
+    elipse->drawable->background = (char*) text;
+  } else if(strcmp(attribute, X) == 0) {
+    elipse->drawable->position_x = parse_double(text);
+  } else if(strcmp(attribute, Y) == 0) {
+    elipse->drawable->position_y = parse_double(text);
+  } else if(strcmp(attribute, LINE_WIDTH) == 0) {
+    elipse->drawable->line_width = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    elipse->drawable->rotate = parse_double(text);
+  } else {
+    print_no_attribute(variable_name, attribute);
+  }
 }
 
 void attribution_on_rectange(Rectangle *rectangle, char *attribute, void *text, char *variable_name) {
@@ -162,6 +166,8 @@ void attribution_on_line(Line* line, char *attribute, void *text, char *variable
     line->drawable->background = text;
   } else if(strcmp(attribute, LINE_WIDTH) == 0){
     line->drawable->line_width = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    line->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
@@ -182,6 +188,8 @@ void attribution_on_arc(Arc *arc, char *attribute, void *text, char *variable_na
     arc->start_angle = parse_double(text);
   } else if(strcmp(attribute, FINAL_ANGLE)==0) {
     arc->final_angle = parse_double(text);
+  } else if(strcmp(attribute, ROTATE) == 0){
+    arc->drawable->rotate = parse_double(text);
   } else {
     print_no_attribute(variable_name, attribute);
   }
