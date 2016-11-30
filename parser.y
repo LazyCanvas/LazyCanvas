@@ -42,6 +42,7 @@ int yylex();
 /* Associates type with token, support only two types */
 
 %type<numeral> Expression NUMBER
+%type<numeral> Compare
 %type<string> Parameter
 %type<string> TEXT
 %type<string> VARIABLE
@@ -79,7 +80,8 @@ Line:
          break;
       }
        case IFELSE: {
-
+         run_ifelse();
+         break;
        }
      }
 
@@ -179,25 +181,27 @@ Loop:
   ;
 If:
   IF_KEYWORD Expression Compare Expression   {
-    int compare = (int) $3;
+
+    int compare = $3;
     int valueCompared = 0;
+
     switch (compare) {
-      case 0:
+      case EQUALS_TO:
         valueCompared = $2 == $4;
       break;
-      case 1:
+      case GREATTER_EQUALS_THEN:
         valueCompared = $2 >= $4;
       break;
-      case 2:
+      case SMALLER_EQUALS_THEN:
         valueCompared = $2 <= $4;
       break;
-      case 3:
+      case DIFFERENT_THEN:
         valueCompared = $2 != $4;
       break;
-      case 4:
+      case SMALLER_THEN:
         valueCompared = $2 < $4;
       break;
-      case 5:
+      case BIGGER_THEN:
         valueCompared = $2 > $4;
       break;
     }
@@ -210,12 +214,12 @@ If:
   }
   ;
 Compare:
-  EQUALS_TO {$$ = 0;}
-  | GREATTER_EQUALS_THEN {$$ = 1;}
-  | SMALLER_EQUALS_THEN {$$ = 2;}
-  | DIFFERENT_THEN {$$ = 3;}
-  | SMALLER_THEN {$$ = 4;}
-  | BIGGER_THEN {$$ = 5;}
+  EQUALS_TO { $$ = EQUALS_TO; }
+  | GREATTER_EQUALS_THEN { $$ = GREATTER_EQUALS_THEN; }
+  | SMALLER_EQUALS_THEN { $$ = SMALLER_EQUALS_THEN; }
+  | DIFFERENT_THEN { $$ = DIFFERENT_THEN; }
+  | SMALLER_THEN { $$ = SMALLER_THEN; }
+  | BIGGER_THEN { $$ = BIGGER_THEN; }
   ;
 %%
 

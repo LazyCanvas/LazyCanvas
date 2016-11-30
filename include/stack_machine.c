@@ -115,7 +115,12 @@ void run_loop() {
 }
 
 void run_ifelse() {
-  
+  printf("Run ifelse\n");
+  if(if_should_print) {
+    execute_block();
+  }
+  block_type = DEFAULT;
+  top = 0;
 }
 
 void push_instruction(CodeOperations operation, char *var_name,
