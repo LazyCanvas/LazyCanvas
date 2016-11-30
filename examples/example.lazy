@@ -1,0 +1,44 @@
+circle = Circle.new
+circle.x = 100
+circle.y = 100
+circle.radius = 50
+circle.lineWidth = 2
+draw(circle)
+
+circle.background = "#DCDCDC"
+circle.x = 250
+draw(circle)
+
+line = Line.new
+line.x = 500
+line.y = 500
+line.x1 = 550
+line.y1 = 400
+draw(line)
+
+rectangle = Rectangle.new
+rectangle.x = 100
+rectangle.y = 100
+rectangle.width = 200
+rectangle.heigth = 300
+rectangle.background = "black"
+rectangle.lineWidth = 5
+rectangle.rotate = 50
+draw(rectangle)
+
+arc = Arc.new
+arc.x = 200
+arc.y = 200
+arc.radius = 50
+arc.startAngle = 0
+arc.finalAngle = 180
+arc.background = "red"
+arc.lineWidth = 3
+draw(arc)
+
+elipse = Elipse.new
+elipse.x = 350
+elipse.y = 350
+elipse.heigth = 50
+elipse.width = 100
+draw(elipse)
