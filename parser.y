@@ -41,7 +41,8 @@ int yylex();
 
 /* Associates type with token, support only two types */
 
-%type<numeral> Expression NUMBER Compare
+%type<numeral> Expression NUMBER
+%type<numeral> Compare
 %type<string> Parameter
 %type<string> TEXT
 %type<string> VARIABLE
@@ -70,11 +71,19 @@ Line:
    | If BREAK_LINE
    | Parameter BREAK_LINE { printf("Parâmetro %s", $1); }
    | END_BLOCK {
-     if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
+     if(block_type != 0) {
        push_instruction(HALT, NULL, NULL, NULL, 0);
      }
-
-     run_loop();
+     switch (block_type) {
+       case LOOP: {
+         run_loop();
+         break;
+      }
+       case IFELSE: {
+         run_ifelse();
+         break;
+       }
+     }
 
    }
    /* Search a variable */
@@ -107,9 +116,7 @@ Expression:
 Instance:
    VARIABLE EQUALS TYPES DOT NEW_KEYWORD {
      if(block_type != 0) {
-       if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-         push_instruction(INSTANCE, $1, $3, NULL, 0);
-       }
+       push_instruction(INSTANCE, $1, $3, NULL, 0);
      } else {
        instance_object($1, $3);
      }
@@ -127,9 +134,7 @@ Attribution:
    /* Attribution of object with numerical type */
    | VARIABLE DOT VARIABLE EQUALS TEXT {
        if(block_type != 0) {
-         if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-           push_instruction(ATTRIBUTION, $1, $3, $5, 0);
-         }
+         push_instruction(ATTRIBUTION, $1, $3, $5, 0);
        } else {
          include_text_on_object_attribute($1, $3, $5);
        }
@@ -138,9 +143,7 @@ Attribution:
    /* Attribution of object with textual type */
    | VARIABLE DOT VARIABLE EQUALS Expression {
      if(block_type != 0) {
-       if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-         push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
-       }
+       push_instruction(ATTRIBUTION, $1, $3, NULL, $5);
      } else {
        include_number_on_object_attribute($1, $3, $5);
      }
@@ -153,9 +156,7 @@ Action:
       printf("Variable %s not found\n", $3);
     } else {
       if(block_type != 0) {
-        if(block_type != IFELSE ||( block_type == IFELSE && if_should_print == 1) ) {
-          push_instruction(ACTION, $3, NULL, NULL, 0);
-        }
+        push_instruction(ACTION, $3, NULL, NULL, 0);
       } else {
         draw(finded);
       }
@@ -180,25 +181,27 @@ Loop:
   ;
 If:
   IF_KEYWORD Expression Compare Expression   {
-    int compare = (int) $3;
+
+    int compare = $3;
     int valueCompared = 0;
+
     switch (compare) {
-      case 0:
+      case EQUALS_TO:
         valueCompared = $2 == $4;
       break;
-      case 1:
+      case GREATTER_EQUALS_THEN:
         valueCompared = $2 >= $4;
       break;
-      case 2:
+      case SMALLER_EQUALS_THEN:
         valueCompared = $2 <= $4;
       break;
-      case 3:
+      case DIFFERENT_THEN:
         valueCompared = $2 != $4;
       break;
-      case 4:
+      case SMALLER_THEN:
         valueCompared = $2 < $4;
       break;
-      case 5:
+      case BIGGER_THEN:
         valueCompared = $2 > $4;
       break;
     }
@@ -211,12 +214,12 @@ If:
   }
   ;
 Compare:
-  EQUALS_TO {$$ = 0;}
-  | GREATTER_EQUALS_THEN {$$ = 1;}
-  | SMALLER_EQUALS_THEN {$$ = 2;}
-  | DIFFERENT_THEN {$$ = 3;}
-  | SMALLER_THEN {$$ = 4;}
-  | BIGGER_THEN {$$ = 5;}
+  EQUALS_TO { $$ = EQUALS_TO; }
+  | GREATTER_EQUALS_THEN { $$ = GREATTER_EQUALS_THEN; }
+  | SMALLER_EQUALS_THEN { $$ = SMALLER_EQUALS_THEN; }
+  | DIFFERENT_THEN { $$ = DIFFERENT_THEN; }
+  | SMALLER_THEN { $$ = SMALLER_THEN; }
+  | BIGGER_THEN { $$ = BIGGER_THEN; }
   ;
 %%
 
