@@ -61,3 +61,5 @@ Hoje a linguagem está incompleta, sendo necessárias várias correções e melh
 * Operações utilizando variáveis e números dentro de for's, por exemplo x = a + 1;
 * Else;
 * Estrutura de controle aninhadas;
+* Criação de função;
+* Minificação do código final;
